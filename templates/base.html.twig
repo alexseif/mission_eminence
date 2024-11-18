@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-bs-theme="dark">
 	<head>
 		<meta charset="UTF-8">
 		<title>
@@ -16,6 +16,13 @@
 		{# {% block importmap %}{{ importmap('app') }}{% endblock %} #}{% endblock %}
 	</head>
 	<body>
-		{% block body %}{% endblock %}
-	</body>
-</html>
+		{% block header %}
+			{% include 'partial/_nav.html.twig' %}
+		{% endblock %}
+		<main class="container-fluid"> {% block body %}{% endblock %}
+			</main>
+			{% block footer %}
+				{# TODO: Footer ?? #}
+			{% endblock %}
+		</body>
+	</html>

@@ -1,3 +1,204 @@
-body {
-    background-color: skyblue;
+// 1. Configuration and helpers
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/variables-dark";
+
+// Using Bootstrap's include-media-breakpoint mixin
+// Bootstrap breakpoints:
+// sm: 576px
+// md: 768px
+// lg: 992px
+// xl: 1200px
+// xxl: 1400px
+
+// 2. Font declarations
+@mixin font-face($name, $weight) {
+    @font-face {
+        font-family: 'Beautifully Delicious Script';
+        src: url('../fonts/BeautifullyDelicious/BDSans-#{$name}.otf') format('woff2'),
+        url('../fonts/BeautifullyDelicious/BDSans-#{$name}.otf') format('woff'),
+        url('../fonts/BeautifullyDelicious/BDSans-#{$name}.otf') format('truetype');
+        font-weight: $weight;
+        font-style: normal;
+    }
+}
+
+@include font-face('Thin', 200);
+@include font-face('Regular', 400);
+@include font-face('Bold', 600);
+@include font-face('Black', 700);
+
+// 3. Variables
+$theme-colors: (
+    'gold': #AB973E,
+    'green': #176C73,
+    'black': #000000,
+    'white': #ffffff
+);
+
+// 3. Base configuration
+$font-size-base: 1rem;
+$font-size-lg: 1.875rem;
+
+$font-family-base: 'Beautifully Delicious Script', sans-serif;
+$dark: map-get($theme-colors, 'black');
+$body-bg-dark: map-get($theme-colors, 'black');
+$navbar-color: map-get($theme-colors, 'white');
+$navbar-dark-color: map-get($theme-colors, 'white');
+$navbar-dark-hover-color: map-get($theme-colors, 'gold');
+$navbar-dark-active-color: map-get($theme-colors, 'gold');
+$nav-link-font-weight: 600;
+$navbar-nav-link-padding-x: 2rem;
+$card-cap-bg: transparent;
+$card-border-width: 0;
+
+// 5. Navbar configuration
+$navbar: (
+    'brand-height': 5rem,
+    'brand-padding-y': 1.875rem,
+    'color': map-get($theme-colors, 'white'),
+    'dark-color': map-get($theme-colors, 'white'),
+    'nav-link-padding-x': 2rem
+);
+
+// 6. Bootstrap imports
+@import "~bootstrap/scss/maps";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/bootstrap";
+
+@include media-breakpoint-up(lg) {
+    $font-size-base: 1.875rem;
+}
+
+
+// 7. Components
+.btn-eminence {
+    background-color: transparent;
+    font-size: $font-size-base;
+    border: 0.125rem solid map-get($theme-colors, 'gold');
+    border-radius: 1.5rem;
+    padding: 0.3125rem 1.5rem;
+    font-weight: bold;
+
+    @include media-breakpoint-up(md) {
+        border-radius: 2.5rem;
+        padding: 0.3125rem 2.5rem 0.625rem;
+    }
+}
+
+// 8. Layout
+.navbar {
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+
+    &-brand {
+        padding-left: 1rem;
+
+        @include media-breakpoint-up(md) {
+            padding-left: 1.875rem;
+        }
+    }
+
+    &-nav {
+        text-transform: uppercase;
+        font-size: 1rem;
+
+        @include media-breakpoint-up(lg) {
+            font-size: $font-size-lg;
+        }
+    }
+}
+
+main {
+    .fullpage {
+        min-height: 100vh;
+    }
+}
+
+// 9. Pages
+#homepage {
+    h2 {
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-left: 3rem;
+        margin-bottom: 3rem;
+
+        @include media-breakpoint-up(md) {
+            letter-spacing: 4px;
+            font-size: 2rem;
+        }
+    }
+
+    #hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .video-container {
+            height: 100vh;
+            overflow: hidden;
+            position: absolute;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+
+            video {
+                object-fit: cover;
+                height: 100%;
+
+                @include media-breakpoint-up(lg) {
+                    height: 90%;
+                }
+            }
+        }
+
+        h1 {
+            font-size: 2rem;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-shadow: 0 0 16px map-get($theme-colors, 'white');
+            z-index: 12;
+
+            @include media-breakpoint-up(md) {
+                font-size: 3.5rem;
+                letter-spacing: 6px;
+            }
+
+            @include media-breakpoint-up(lg) {
+                font-size: 70px;
+                letter-spacing: 8px;
+            }
+        }
+    }
+
+    #services {
+        .card {
+            margin-bottom: 1rem;
+            border: 0.25rem solid map-get($theme-colors, 'green');
+            border-radius: 4rem;
+            height: 100%;
+            background-color: transparent;
+            text-align: center;
+
+            .card-header {
+                background-color: transparent;
+                border: 0;
+            }
+
+            .card-title {
+                padding-top: 20px;
+            }
+
+            .card-body {
+                font-family: 'Montserrat', 'Open sans';
+                // padding: 20px;
+            }
+        }
+    }
 }

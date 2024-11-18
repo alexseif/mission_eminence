@@ -1,0 +1,143 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/variables-dark";
+
+@font-face {
+    font-family: 'Beautifully Delicious';
+    src: url('../fonts/BeautifullyDelicious/BDSans-Thin.otf') format('woff2'),
+        url('../fonts/BeautifullyDelicious/BDSans-Thin.otf') format('woff'),
+        url('../fonts/BeautifullyDelicious/BDSans-Thin.otf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Beautifully Delicious';
+    src: url('../fonts/BeautifullyDelicious/BDSans-Regular.otf') format('woff2'),
+        url('../fonts/BeautifullyDelicious/BDSans-Regular.otf') format('woff'),
+        url('../fonts/BeautifullyDelicious/BDSans-Regular.otf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Beautifully Delicious';
+    src: url('../fonts/BeautifullyDelicious/BDSans-Bold.otf') format('woff2'),
+        url('../fonts/BeautifullyDelicious/BDSans-Bold.otf') format('woff'),
+        url('../fonts/BeautifullyDelicious/BDSans-Bold.otf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+$font-family-base: 'Beautifully Delicious', sans-serif;
+$font-size-base: 1.875rem;
+
+//Pallete
+$gold: #AB973E;
+$green: #176C73;
+$black: #000000;
+$white: #ffffff;
+
+$dark: $black;
+$body-bg-dark: $black;
+$navbar-brand-height: 5rem;
+$navbar-brand-padding-y: 1.875rem;
+// $nav-link-font-weight: bold;
+$navbar-color: $white;
+$navbar-dark-color: $white;
+$navbar-nav-link-padding-x: 2rem;
+
+@import "~bootstrap/scss/maps";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/bootstrap";
+
+.btn-eminence {
+    background-color: transparent;
+    font-size: 1.875rem;
+    border: 0.125rem solid #AB973E;
+    border-radius: 2.5rem;
+    padding: 0.3125rem 2.5rem 0.625rem;
+    font-weight: bold;
+}
+
+h1 {
+    text-transform: uppercase;
+}
+
+.navbar {
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+
+.navbar-brand {
+    padding-left: 1.875rem;
+}
+
+.navbar-nav {
+    text-transform: uppercase;
+    // flex-grow: 1;
+    // justify-content: space-evenly;
+    // font-weight: bold;
+}
+
+
+main {
+    position: relative;
+
+    .fullpage {
+        min-height: 100vh;
+    }
+}
+
+#homepage {
+    #hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .video-container {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            position: absolute;
+            display: flex;
+            align-items: flex-end;
+
+            video {
+                width: 100%;
+                height: 900%;
+            }
+        }
+    }
+
+    h1 {
+        font-size: 70px;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 8px;
+        text-shadow: 0px 0px 16px #ffffff;
+        z-index: 12;
+    }
+
+    h2 {
+        text-transform: uppercase;
+        font-size: 34px;
+        font-weight: bold;
+        margin-bottom: 50px;
+    }
+
+    #services {
+        .card {
+            width: 30%;
+            border: 2px solid #176C73;
+            border-radius: 8px;
+        }
+    }
+}

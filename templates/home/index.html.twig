@@ -4,6 +4,14 @@
 	Mission Eminence!
 {% endblock %}
 
-{% block body %}{# TODO: Nav #}
-	{# TODO: Hero with video #}
-{% endblock %}
+{% block body %}
+	{# https://www.canva.com/design/DAGWVHcnLwY/CLrNtp0Va5vP6FzleuPWqw/edit #}
+	<div id="homepage">
+		{% include 'home/_hero.html.twig' %}
+		{% include 'home/_services.html.twig' %}
+		{% include 'home/_counters.html.twig' %}
+		{% include 'home/_overview_video.html.twig' %}
+		{% include 'home/_free_course.html.twig' %}
+		{% include 'home/_testimonials.html.twig' %}
+		{% include 'home/_our_partners.html.twig' %}
+	</div><!-- /#homepage -->{% endblock %}
