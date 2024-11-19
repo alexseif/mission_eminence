@@ -23,6 +23,10 @@
     }
 }
 
+// Add Montserrat font loading
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+
 @include font-face('Thin', 200);
 @include font-face('Regular', 400);
 @include font-face('Bold', 600);
@@ -210,11 +214,69 @@ main {
     }
 
     #counters {
+        padding-top: 2.5rem;
+        padding-bottom: 3rem;
         color: map-get($theme-colors, 'gold');
         font-size: 1.5rem;
 
-        .number {
-            font-size: 2.5rem;
+        .counter {
+            position: relative;
+            min-height: 18.7500rem;
+            min-width: 18.7500rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            &::before {
+                position: absolute;
+                content: " ";
+                background: url("../images/g46.png") no-repeat center center;
+                background-size: cover;
+                min-height: 19rem;
+                min-width: 19rem;
+                top: 0.75rem;
+                left: -1.5rem;
+            }
+
+            .number {
+                font-size: 2.5rem;
+                font-weight: bold;
+                display: inline-flex;
+                align-items: center;
+
+                &::after {
+                    content: '+';
+                    margin-left: 0.2rem;
+                }
+
+            }
+
+            &:last-child {
+                .number::before {
+                    content: 'TOP ';
+                }
+            }
+
+        }
+    }
+
+    #free-course {
+        p {
+            max-width: 900px;
+            font-family: 'Montserrat', 'Open sans';
+            font-size: large;
+        }
+
+        .cta {
+            color: #ffffff;
+            background-color: map-get($theme-colors, 'green');
+            border: 2px solid #ffffff;
+            border-radius: 28px;
+            max-width: 250px;
+            padding: 10px;
+            text-decoration: none;
+            display: inline-block;
         }
     }
 
