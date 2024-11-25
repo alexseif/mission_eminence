@@ -3,7 +3,40 @@
 	<div class="container-fluid">
 		<h2>Testimonials</h2>
 		{# TODO: Testimonials carousel #}
-	</div>
-	<!-- .container-fluid -->
-</section>
-<!-- #testimonials -->
+		<div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner">
+				<ul id="testimonials" class="list-unstyled">
+					<li class="carousel-item active">
+						<div class="row">
+							{% for testimonial in testimonials %}
+								<div class="col-md-4">
+									<figure class="figure">
+										<img src="{{ vich_uploader_asset(testimonial) }}" class="figure-img img-fluid rounded" alt="{{ testimonial.alt }}"/>
+										<figcaption class="figure-caption">Caption 1</figcaption>
+									</figure>
+								</div>
+								{% if loop.index0 % 3 == 0%}
+								</li>
+								<div class="row">
+									<li class="carousel-item active">
+										<div class="row">
+										{% endif %}
+									{% endfor %}
+								</ul>
+							</div>
+							<button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>
+							<!-- .carousel-inner -->
+						</div>
+						<!-- #testimonialCarousel -->
+					</li>
+				</div>
+				<!-- .container-fluid -->
+			</section>
+			<!-- #testimonials -->
