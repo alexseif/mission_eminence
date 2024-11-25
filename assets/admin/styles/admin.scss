@@ -1,0 +1,68 @@
+// 1. Configuration and helpers
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/variables-dark";
+
+// Using Bootstrap's include-media-breakpoint mixin
+// Bootstrap breakpoints:
+// sm: 576px
+// md: 768px
+// lg: 992px
+// xl: 1200px
+// xxl: 1400px
+
+// 2. Font declarations
+// Add Montserrat font loading
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+// 3. Variables
+$theme-colors: (
+    'gold': #AB973E,
+    'green': #176C73,
+    'black': #000000,
+    'white': #ffffff
+);
+
+// 3. Base configuration
+$font-size-base: 1rem;
+$font-size-lg: 1.875rem;
+
+$font-family-base: 'Montserrat', sans-serif;
+$dark: map-get($theme-colors, 'black');
+$body-bg-dark: map-get($theme-colors, 'black');
+$navbar-color: map-get($theme-colors, 'white');
+$navbar-dark-color: map-get($theme-colors, 'white');
+$navbar-dark-hover-color: map-get($theme-colors, 'gold');
+$navbar-dark-active-color: map-get($theme-colors, 'gold');
+$nav-link-font-weight: 600;
+$navbar-nav-link-padding-x: 2rem;
+$card-cap-bg: transparent;
+$card-border-width: 0;
+
+// 5. Navbar configuration
+$navbar: (
+    'brand-height': 5rem,
+    'brand-padding-y': 1.875rem,
+    'color': map-get($theme-colors, 'white'),
+    'dark-color': map-get($theme-colors, 'white'),
+    'nav-link-padding-x': 2rem
+);
+
+// 6. Bootstrap imports
+@import "~bootstrap/scss/maps";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/bootstrap";
+
+@include media-breakpoint-up(lg) {
+    $font-size-base: 1.875rem;
+}
+
+.vich-image {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}

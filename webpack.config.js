@@ -14,6 +14,7 @@ Encore
 
     // Entry point for your app
     .addEntry('app', './assets/app.js')
+    .addEntry('admin', './assets/admin/admin.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
