@@ -1,0 +1,64 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block h1 %}Partnership
+{% endblock %}
+{% block cardActions %}
+	<a href="{{ path('app_partnership_new') }}" class="btn btn-green">Create new</a>
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		{% for partnership in partnerships %}
+			<div class="col-4">
+				{% if partnership.link %}
+					<a href="{{ partnership.link }}">
+					{% endif %}
+					<div class="card">
+						<img class="card-img-top" src="{{ vich_uploader_asset(partnership) }}" alt="{{ partnership.name}}">
+						<div class="card-header d-flex">
+							<h1 class="card-title">{{ partnership.name }}</h1>
+							<div class="ms-auto">
+								<div class="btn-group btn-group-sm">
+									<a href="{{ path('app_partnership_show', {'id': partnership.id}) }}" class="btn btn-green">show</a>
+									<a href="{{ path('app_partnership_edit', {'id': partnership.id}) }}" class="btn btn-green">edit</a>
+								</div>
+								<!-- .btn-group -->
+							</div>
+							<!-- .ms-auto -->
+						</div>
+						<!-- .card-header -->
+						<div class="card-body">
+							{{ partnership.description|raw }}
+						</div>
+						<!-- .card-body -->
+						<div class="card-footer">
+							<table class="table">
+								<tbody>
+									<tr>
+										<th>Link</th>
+										<td>{{ partnership.link }}</td>
+									</tr>
+									<tr>
+										<th>CreatedAt</th>
+										<td>{{ partnership.createdAt ? partnership.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+									</tr>
+									<tr>
+										<th>UpdatedAt</th>
+										<td>{{ partnership.updatedAt ? partnership.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- .card-footer  -->
+					</div>
+					<!-- .card -->
+					{% if partnership.link %}
+					</a>
+				{% endif %}
+			</div>
+			<!-- .col-4 -->
+		{% endfor %}
+	</div>
+	<!-- .row -->
+
+{% endblock %}

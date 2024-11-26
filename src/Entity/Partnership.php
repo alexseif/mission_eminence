@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\TestimonialRepository;
+use App\Repository\PartnershipRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[ORM\Entity(repositoryClass: TestimonialRepository::class)]
+#[ORM\Entity(repositoryClass: PartnershipRepository::class)]
 #[Vich\Uploadable]
-class Testimonial
+class Partnership
 {
     use TimestampableEntity;
 
@@ -20,23 +20,40 @@ class Testimonial
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     // NOTE: This is not a mapped field of entity metadata, just a simple property.
-    // #[Vich\UploadableField(mapping: 'testimonial', fileNameProperty: 'testimonial.name', size: 'testimonial.size')]
-    #[Vich\UploadableField(mapping: 'testimonial_image', fileNameProperty: 'testimonial')]
+    // #[Vich\UploadableField(mapping: 'partnership', fileNameProperty: 'partnership.name', size: 'partnership.size')]
+    #[Vich\UploadableField(mapping: 'partnership_image', fileNameProperty: 'partnership')]
     private ?File $imageFile = null;
 
-    #[ORM\Column]
-    private ?string $testimonial = null;
+    #[ORM\Column(nullable: true)]
+    private ?string $partnership = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $alt = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $link = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
-   
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the update. If this
@@ -62,25 +79,36 @@ class Testimonial
         return $this->imageFile;
     }
 
-    public function setTestimonial(?string $testimonial): self
+    public function setPartnership(?string $partnership): self
     {
-        $this->testimonial = $testimonial;
+        $this->partnership = $partnership;
         return $this;
     }
 
-    public function getTestimonial(): ?string
+    public function getPartnership(): ?string
     {
-        return $this->testimonial;
+        return $this->partnership;
+    }
+    public function getDescription(): ?string
+    {
+        return $this->description;
     }
 
-    public function getAlt(): ?string
+    public function setDescription(?string $description): static
     {
-        return $this->alt;
+        $this->description = $description;
+
+        return $this;
     }
 
-    public function setAlt(string $alt): static
+    public function getLink(): ?string
     {
-        $this->alt = $alt;
+        return $this->link;
+    }
+
+    public function setLink(?string $link): static
+    {
+        $this->link = $link;
 
         return $this;
     }
