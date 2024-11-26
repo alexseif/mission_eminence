@@ -17,20 +17,56 @@
 
 // 3. Variables
 // $theme-colors: (
+//     'primary': $primary,
+//     'secondary': $secondary,
+//     'success': $success,
+//     'info': $info,
+//     'warning': $warning,
+//     'danger': $danger,
+//     'light': $light,
+//     'dark': $dark,
 //     'gold': #AB973E,
 //     'green': #176C73,
 //     'black': #000000,
 //     'white': #ffffff
 // );
+// Define your custom color palette 
+$theme-colors: (
+    'primary': #4A90E2,
+    // Set green as primary color 
+    'secondary': #AB973E,
+    // Set gold as secondary color 
+    'success': #58A6AB,
+    // Set light green as success color 
+    'info': #FFF5E1,
+    // Set cream as info color 
+    'warning': #8C7A31,
+    // Set dark gold as warning color 
+    'danger': #CC4C4C,
+    // Set black as danger color 
+    'light': #ffffff,
+    // Set white as light color 
+    'dark': #000000,
+    // Set grey as dark color 
+    'gold': #AB973E,
+    'green': #176C73,
+    'black': #000000,
+    'white': #ffffff,
+    'dark-gold': #8C7A31,
+    'light-green': #58A6AB,
+    'grey': #808080,
+    'cream': #FFF5E1
+);
 
 // 3. Base configuration
 // $font-size-base: 1rem;
 // $font-size-lg: 1.875rem;
 
-$font-family-base: 'Montserrat', sans-serif;
+$font-family-base: 'Montserrat',
+    sans-serif;
 $nav-link-font-weight: 600;
-$border-radius: 0;
-$border-radius-sm: 0;
+// $border-radius: 0;
+// $border-radius-sm: 0;
 
 
 // 6. Bootstrap imports

@@ -1,4 +1,4 @@
-{% macro link(url, text, icon, color='outline-secondary', size='sm') %}
+{% macro link(url, text, icon, color='primary', size='sm') %}
 	<a href="{{ url }}" class="btn btn-{{size}} btn-{{ color }}" title="{{ text|trans }}">
 		{% if(icon) %}
 			<i class="{{ icon }} pe-1"></i>
@@ -14,10 +14,10 @@
 	{{ _self.show(mainPath~'_show',id) }}
 {% endmacro %}
 {% macro edit(path, id) %}
-	{{ _self.link(path(path, {'id': id}), 'edit', 'ph-pencil', 'outline-secondary') }}
+	{{ _self.link(path(path, {'id': id}), 'edit', 'ph-pencil') }}
 {% endmacro %}
 {% macro show(path, id) %}
-	{{ _self.link(path(path, {'id': id}), 'show', 'ph-eye', 'outline-secondary') }}
+	{{ _self.link(path(path, {'id': id}), 'show', 'ph-eye') }}
 {% endmacro %}
 {% macro back(path) %}
 	{{ _self.link(path(path), 'back to list', 'ph-arrow-right', 'outline-secondary') }}
