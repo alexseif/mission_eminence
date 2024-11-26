@@ -1,0 +1,27 @@
+{% macro link(url, text, icon, color='outline-secondary', size='sm') %}
+	<a href="{{ url }}" class="btn btn-{{size}} btn-{{ color }}" title="{{ text|trans }}">
+		{% if(icon) %}
+			<i class="{{ icon }} pe-1"></i>
+		{% endif %}
+		<span class="flex-1">{{ text|trans }}</span>
+	</a>
+{% endmacro %}
+{% macro add(path) %}
+	{{ _self.link(path(path), 'Create new', 'ph-plus') }}
+{% endmacro %}
+{% macro showEdit(mainPath, id) %}
+	{{ _self.edit(mainPath~'_edit', id) }}
+	{{ _self.show(mainPath~'_show',id) }}
+{% endmacro %}
+{% macro edit(path, id) %}
+	{{ _self.link(path(path, {'id': id}), 'edit', 'ph-pencil', 'outline-secondary') }}
+{% endmacro %}
+{% macro show(path, id) %}
+	{{ _self.link(path(path, {'id': id}), 'show', 'ph-eye', 'outline-secondary') }}
+{% endmacro %}
+{% macro back(path) %}
+	{{ _self.link(path(path), 'back to list', 'ph-arrow-right', 'outline-secondary') }}
+{% endmacro %}
+{% macro tel(tel) %}
+	{{ _self.link('tel:'~tel, tel, 'ph ph-phone') }}
+{% endmacro %}

@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/admin/testimonial')]
 final class TestimonialController extends AbstractController
 {
-    #[Route(name: 'app_testimonial_index', methods: ['GET'])]
+    #[Route(name: 'admin_testimonial_index', methods: ['GET'])]
     public function index(TestimonialRepository $testimonialRepository): Response
     {
         return $this->render('admin/testimonial/index.html.twig', [
@@ -22,7 +22,7 @@ final class TestimonialController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_testimonial_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'admin_testimonial_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $testimonial = new Testimonial();
@@ -33,7 +33,7 @@ final class TestimonialController extends AbstractController
             $entityManager->persist($testimonial);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_testimonial_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_testimonial_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin/testimonial/new.html.twig', [
@@ -42,7 +42,7 @@ final class TestimonialController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_testimonial_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'admin_testimonial_show', methods: ['GET'])]
     public function show(Testimonial $testimonial): Response
     {
         return $this->render('admin/testimonial/show.html.twig', [
@@ -50,7 +50,7 @@ final class TestimonialController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_testimonial_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'admin_testimonial_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Testimonial $testimonial, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TestimonialType::class, $testimonial);
@@ -59,7 +59,7 @@ final class TestimonialController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_testimonial_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_testimonial_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin/testimonial/edit.html.twig', [
@@ -68,7 +68,7 @@ final class TestimonialController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_testimonial_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'admin_testimonial_delete', methods: ['POST'])]
     public function delete(Request $request, Testimonial $testimonial, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $testimonial->getId(), $request->getPayload()->getString('_token'))) {
@@ -76,6 +76,6 @@ final class TestimonialController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_testimonial_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_testimonial_index', [], Response::HTTP_SEE_OTHER);
     }
 }

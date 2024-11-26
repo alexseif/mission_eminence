@@ -1,47 +1,49 @@
 {% extends 'admin/base.html.twig' %}
+{% import 'macros/_links.html.twig' as links %}
 
 {% block h1 %}Testimonial
 {% endblock %}
 {% block cardActions %}
-	<a href="{{ path('app_testimonial_new') }}" class="btn btn-green">Create new</a>
+		{{ links.add('admin_testimonial_new') }}
 {% endblock %}
 {% block body %}
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Testimonial</th>
-				<th>Alt</th>
-				<th>CreatedAt</th>
-				<th>UpdatedAt</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for testimonial in testimonials %}
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
 				<tr>
-					<td>
-						<figure>
-							<img src="{{ vich_uploader_asset(testimonial) }}" alt="{{ testimonial.alt }}" height="150"/>
-							<figcaption>
-								{{ testimonial.testimonial }}
-							</figcaption>
-						</figure>
-					</td>
-					<td>{{ testimonial.alt }}</td>
-					<td>{{ testimonial.createdAt ? testimonial.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ testimonial.updatedAt ? testimonial.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>
-						<a href="{{ path('app_testimonial_show', {'id': testimonial.id}) }}" class="btn btn-green">show</a>
-						<a href="{{ path('app_testimonial_edit', {'id': testimonial.id}) }}" class="btn btn-green">edit</a>
-					</td>
+					<th>Testimonial</th>
+					<th>Alt</th>
+					<th>CreatedAt</th>
+					<th>UpdatedAt</th>
+					<th>actions</th>
 				</tr>
-			{% else %}
-				<tr>
-					<td colspan="5">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-
+			</thead>
+			<tbody>
+				{% for testimonial in testimonials %}
+					<tr>
+						<td>
+							<figure>
+								<img src="{{ vich_uploader_asset(testimonial) }}" alt="{{ testimonial.alt }}" height="150"/>
+								<figcaption>
+									{{ testimonial.testimonial }}
+								</figcaption>
+							</figure>
+						</td>
+						<td>{{ testimonial.alt }}</td>
+						<td>{{ testimonial.createdAt ? testimonial.createdAt|date : '' }}</td>
+						<td>{{ testimonial.updatedAt ? testimonial.updatedAt|date : '' }}</td>
+						<td>
+							{{ links.showEdit('admin_testimonial', testimonial.id)}}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="5">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<!-- .table-responsive -->
 
 {% endblock %}

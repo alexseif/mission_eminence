@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 	<head>
 		<meta charset="UTF-8">
 		<title>
@@ -13,7 +13,6 @@
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('admin') }}
 		{% endblock %}
-
 		{% block javascripts %}
 		{{ encore_entry_script_tags('admin') }}
 		{# {% block importmap %}{{ importmap('app') }}{% endblock %} #}{% endblock %}
@@ -22,31 +21,39 @@
 		{% block header %}
 			{% include 'admin/partial/_nav.html.twig' %}
 		{% endblock %}
-		<main class="container-fluid">
-			{% block main %}
-				<div class="card">
-					<div class="card-header d-flex">
-						<h1 class="card-title mb-0">
-							{% block h1%}{% endblock %}
-						</h1>
-						<div class="ms-auto card-actions">
-							<div class="btn-group btn-group-sm">
-								{% block cardActions %}{% endblock %}
+		<div class="container-fluid">
+			<div class="row">
+				{% include 'admin/partial/_sidebar.html.twig' %}
+				<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="min-height: calc(100vh - 98.766px);">
+					{% block main %}
+						<div class="card mt-3">
+							<div class="card-header d-flex">
+								<h1 class="card-title mb-0">
+									{% block h1 %}{% endblock %}
+								</h1>
+								<div class="ms-auto card-actions">
+									<div>
+										<div class="btn-group btn-group-sm">
+											{% block cardActions %}{% endblock %}
+										</div>
+										<!-- .btn-group -->
+									</div>
+								</div>
+								<!-- .card-actions -->
 							</div>
+							<!-- .card-header -->
+							<div class="card-body">
+								{% block body %}{% endblock %}
+							</div>
+							<!-- .card-body -->
 						</div>
-						<!-- .card-actions -->
-					</div>
-					<!-- .card-header -->
-					<div class="card-body">
-						{% block body %}{% endblock %}
-					</div>
-					<!-- .card-body -->
-				</div>
-				<!-- .card -->
-			{% endblock %}
-		</main>
+						<!-- .card -->
+					{% endblock %}
+				</main>
+			</div>
+		</div>
 		{% block footer %}
 			{# TODO: Footer ?? #}
 		{% endblock %}
 	</body>
-</html></body></html>
+</html>

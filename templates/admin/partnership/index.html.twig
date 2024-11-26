@@ -1,9 +1,10 @@
 {% extends 'admin/base.html.twig' %}
+{% import 'macros/_links.html.twig' as links %}
 
 {% block h1 %}Partnership
 {% endblock %}
 {% block cardActions %}
-	<a href="{{ path('app_partnership_new') }}" class="btn btn-green">Create new</a>
+	{{ links.add('admin_partnership_new') }}
 {% endblock %}
 
 {% block body %}
@@ -15,12 +16,11 @@
 					{% endif %}
 					<div class="card">
 						<img class="card-img-top" src="{{ vich_uploader_asset(partnership) }}" alt="{{ partnership.name}}">
-						<div class="card-header d-flex">
+						<div class="card-header d-flex flex-wrap">
 							<h1 class="card-title">{{ partnership.name }}</h1>
 							<div class="ms-auto">
 								<div class="btn-group btn-group-sm">
-									<a href="{{ path('app_partnership_show', {'id': partnership.id}) }}" class="btn btn-green">show</a>
-									<a href="{{ path('app_partnership_edit', {'id': partnership.id}) }}" class="btn btn-green">edit</a>
+									{{ links.showEdit('admin_partnership', partnership.id)}}
 								</div>
 								<!-- .btn-group -->
 							</div>
@@ -40,11 +40,11 @@
 									</tr>
 									<tr>
 										<th>CreatedAt</th>
-										<td>{{ partnership.createdAt ? partnership.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+										<td>{{ partnership.createdAt ? partnership.createdAt|date : '' }}</td>
 									</tr>
 									<tr>
 										<th>UpdatedAt</th>
-										<td>{{ partnership.updatedAt ? partnership.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+										<td>{{ partnership.updatedAt ? partnership.updatedAt|date : '' }}</td>
 									</tr>
 								</tbody>
 							</table>
