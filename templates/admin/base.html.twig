@@ -42,10 +42,12 @@
 								<!-- .card-actions -->
 							</div>
 							<!-- .card-header -->
-							<div class="card-body">
-								{% block body %}{% endblock %}
-							</div>
-							<!-- .card-body -->
+							{% block cardBody %}
+								<div class="card-body">
+									{% block body %}{% endblock %}
+								</div>
+								<!-- .card-body -->
+							{% endblock %}
 						</div>
 						<!-- .card -->
 					{% endblock %}

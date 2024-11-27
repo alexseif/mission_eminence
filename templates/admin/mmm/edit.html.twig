@@ -1,0 +1,16 @@
+{% extends 'admin/base.html.twig' %}
+{% import 'macros/_links.html.twig' as links %}
+
+
+{% block h1 %}Edit MMM
+{% endblock %}
+{% block cardActions %}
+	<div>
+		{{ links.back('admin_mmm_index') }}
+		{{ include('admin/mmm/_delete_form.html.twig') }}
+	</div>
+{% endblock %}
+
+{% block body %}
+	{{ include('mmm/_form.html.twig', {'button_label': 'Update'}) }}
+{% endblock %}
