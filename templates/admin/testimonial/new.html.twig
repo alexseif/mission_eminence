@@ -4,7 +4,9 @@
 {% block h1 %}New Testimonial
 {% endblock %}
 {% block cardActions %}
-	{{ links.back('admin_testimonial_index')}}
+	<div>
+		{{ links.back('admin_testimonial_index')}}
+	</div>
 {% endblock %}
 {% block body %}
 	{{ include('admin/testimonial/_form.html.twig') }}

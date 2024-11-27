@@ -1,10 +1,13 @@
 {% extends 'admin/base.html.twig' %}
+{% import 'macros/_links.html.twig' as links %}
 
 {% block h1 %}Edit Partnership
 {% endblock %}
 {% block cardActions %}
-	<a href="{{ path('admin_partnership_index') }}" class="btn btn-green">back to list</a>
-	{{ include('admin/partnership/_delete_form.html.twig') }}
+	<div>
+		{{ links.back('admin_partnership_index') }}
+		{{ include('admin/partnership/_delete_form.html.twig') }}
+	</div>
 {% endblock %}
 
 {% block body %}
