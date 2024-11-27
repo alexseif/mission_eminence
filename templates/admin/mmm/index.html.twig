@@ -10,36 +10,14 @@
 {% endblock %}
 
 {% block body %}
-	<table class="table table-bordered table-stripped">
-		<thead>
-			<tr>
-				<th>Title</th>
-				<th>Content</th>
-				<th>Image</th>
-				<th>CreatedAt</th>
-				<th>UpdatedAt</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for mmm in mmms %}
-				<tr>
-					<td>{{ mmm.title }}</td>
-					<td>{{ mmm.content }}</td>
-					<td>{{ mmm.image }}</td>
-					<td>{{ mmm.createdAt ? mmm.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ mmm.updatedAt ? mmm.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>
-						<a href="{{ path('admin_mmm_show', {'id': mmm.id}) }}">show</a>
-						<a href="{{ path('admin_mmm_edit', {'id': mmm.id}) }}">edit</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="6">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	<div class="row">
+		{% for mmm in mmms %}
+			<div class="col-4">
+				{% include 'admin/mmm/_card.html.twig' %}
+			</div>
+			<!-- .col-4 -->
+		{% endfor %}
+	</div>
+	<!-- .row -->
 
 {% endblock %}

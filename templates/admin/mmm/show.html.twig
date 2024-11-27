@@ -12,28 +12,5 @@
 {% endblock %}
 
 {% block body %}
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Title</th>
-				<td>{{ mmm.title }}</td>
-			</tr>
-			<tr>
-				<th>Content</th>
-				<td>{{ mmm.content }}</td>
-			</tr>
-			<tr>
-				<th>Image</th>
-				<td>{{ mmm.image }}</td>
-			</tr>
-			<tr>
-				<th>CreatedAt</th>
-				<td>{{ mmm.createdAt ? mmm.createdAt|date : '' }}</td>
-			</tr>
-			<tr>
-				<th>UpdatedAt</th>
-				<td>{{ mmm.updatedAt ? mmm.updatedAt|date : '' }}</td>
-			</tr>
-		</tbody>
-	</table>
+	{% include 'admin/mmm/_card.html.twig' %}
 {% endblock %}

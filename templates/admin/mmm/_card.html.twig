@@ -1,0 +1,35 @@
+{% import 'macros/_links.html.twig' as links %}
+<article class="card">
+	<img class="card-img-top" src="{{ vich_uploader_asset(mmm) }}" alt="{{ mmm.title}}">
+	<div class="card-header d-flex flex-wrap">
+		<h1 class="card-title">{{ mmm.title }}</h1>
+		<div class="ms-auto">
+			<div class="btn-group btn-group-sm">
+				{{ links.showEdit('admin_mmm', mmm.id)}}
+			</div>
+			<!-- .btn-group -->
+		</div>
+		<!-- .ms-auto -->
+	</div>
+	<!-- .card-header -->
+	<div class="card-body">
+		{{ mmm.content|raw }}
+	</div>
+	<!-- .card-body -->
+	<div class="card-footer">
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>CreatedAt</th>
+					<td>{{ mmm.createdAt ? mmm.createdAt|date : '' }}</td>
+				</tr>
+				<tr>
+					<th>UpdatedAt</th>
+					<td>{{ mmm.updatedAt ? mmm.updatedAt|date : '' }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- .card-footer  -->
+</article>
+<!-- .card -->
