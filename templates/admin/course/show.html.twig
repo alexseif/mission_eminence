@@ -1,0 +1,16 @@
+{% extends 'admin/base.html.twig' %}
+{% import 'macros/_links.html.twig' as links %}
+
+{% block h1 %}Course
+{% endblock %}
+{% block cardActions %}
+	<div>
+		{{ links.back('admin_course_index') }}
+		{{ links.edit('admin_course_edit', course.id) }}
+		{{ include('admin/course/_delete_form.html.twig') }}
+	</div>
+{% endblock %}
+
+{% block body %}
+	{% include 'admin/course/_card.html.twig' %}
+{% endblock %}

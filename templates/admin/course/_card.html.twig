@@ -1,0 +1,43 @@
+{% import 'macros/_links.html.twig' as links %}
+<article class="card">
+	<img class="card-img-top" src="{{ vich_uploader_asset(course) }}" alt="{{ course.title}}">
+	<div class="card-header d-flex flex-wrap">
+		<h1 class="card-title">{{ course.title }}</h1>
+		<div class="ms-auto">
+			<div class="btn-group btn-group-sm">
+				{{ links.showEdit('admin_course', course.id)}}
+			</div>
+			<!-- .btn-group -->
+		</div>
+		<!-- .ms-auto -->
+	</div>
+	<!-- .card-header -->
+	<div class="card-body">
+		{{ course.description|raw }}
+	</div>
+	<!-- .card-body -->
+	<div class="card-footer">
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Day</th>
+					<td>{{ course.day }}</td>
+				</tr>
+				<tr>
+					<th>Locaked</th>
+					<td>{{ course.locked ? 'Locked': 'Open' }}</td>
+				</tr>
+				<tr>
+					<th>CreatedAt</th>
+					<td>{{ course.createdAt ? course.createdAt|date : '' }}</td>
+				</tr>
+				<tr>
+					<th>UpdatedAt</th>
+					<td>{{ course.updatedAt ? course.updatedAt|date : '' }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- .card-footer  -->
+</article>
+<!-- .card -->

@@ -1,0 +1,24 @@
+{% extends 'admin/base.html.twig' %}
+{% import 'macros/_links.html.twig' as links %}
+
+{% block h1 %}Course
+{% endblock %}
+{% block cardActions %}
+	<div>
+		{{ links.add('admin_course_new') }}
+	</div>
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		{% for course in courses %}
+			<div class="col-4">
+				{% include 'admin/course/_card.html.twig' %}
+			</div>
+			<!-- .col-4 -->
+		{% endfor %}
+	</div>
+	<!-- .row -->
+
+
+{% endblock %}
