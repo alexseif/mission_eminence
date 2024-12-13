@@ -57,7 +57,10 @@ $nav-link-font-weight: 600;
 $navbar-nav-link-padding-x: 2rem;
 $card-cap-bg: transparent;
 $card-border-width: 0;
-
+// $input-border-color: gold;
+$input-focus-border-color: map-get($theme-colors, 'gold');
+$input-focus-box-shadow: 0 0 0 0.25rem rgba(171, 151, 62, 0.25);
+$input-placeholder-color: map-get($theme-colors, 'gold');
 // 5. Navbar configuration
 $navbar: (
     'brand-height': 5rem,
@@ -289,5 +292,13 @@ main {
             margin-left: 2rem;
             margin-right: 2rem;
         }
+    }
+}
+
+#registration {
+    padding-top: 7.25rem;
+
+    .registration-form {
+        margin-top: 7.25rem;
     }
 }
