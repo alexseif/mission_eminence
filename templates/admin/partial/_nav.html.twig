@@ -14,13 +14,13 @@
 					<a class="nav-link" href="#students">Students</a>
 				</li>
 			</ul>
-			<div class="navbar-nav d-flex ms-5">
-				{# <a href="{{ path('app_login') }}" class="btn btn-primary">Login</a> #}
+			<div
+				class="navbar-nav d-flex ms-5">
 				{# Bootstrap dropdown user menu for symfony 6 and twig #}
-					<div class="nav-item dropdown"> <a
-						class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						{# TODO: User name #}
-						User Menu
+				<div class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						{{ app.user.name }}
+
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
 						<li>
@@ -30,7 +30,7 @@
 							<a class="dropdown-item" href="#">Settings</a>
 						</li>
 						<li>
-							<a class="dropdown-item" href="#">Logout</a>
+							<a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
 						</li>
 					</ul>
 				</div>

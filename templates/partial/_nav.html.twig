@@ -11,20 +11,24 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mx-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link" href="#services">Services</a>
+					<a class="nav-link" href="{{ path('app_home') }}#services">Services</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#free-course">Free Course</a>
+					<a class="nav-link" href="{{ path('app_home') }}#free-course">Free Course</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#testimonials">Testimonials</a>
+					<a class="nav-link" href="{{ path('app_home') }}#testimonials">Testimonials</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#our-partners">Partners</a>
+					<a class="nav-link" href="{{ path('app_home') }}#our-partners">Partners</a>
 				</li>
 			</ul>
 			<div class="d-flex ms-5">
-				<a href="{{ path('app_login') }}" class="btn btn-eminence">Login</a>
+				{% if app.user %}
+						<a href="{{ path('app_login') }}" class="btn btn-eminence">{{ app.user.name }}</a>
+					{% else %}
+						<a href="{{ path('app_login') }}" class="btn btn-eminence">Login</a>
+				{% endif %}
 			</div>
 		</div>
 	</div>
