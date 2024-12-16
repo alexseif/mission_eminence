@@ -1,7 +1,7 @@
 "use strict";
 import 'core-js/stable';
 import './styles/app.scss';
-
+import 'bootstrap-icons/font/bootstrap-icons.css';
 // Importing Stimulus controllers
 // import './bootstrap';
 import 'bootstrap';

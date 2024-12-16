@@ -11,23 +11,40 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mx-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_home') }}#services">Services</a>
+					<a class="nav-link" href="{{ path('app_home') }}#services">{{ "Services"|trans }}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_home') }}#free-course">Free Course</a>
+					<a class="nav-link" href="{{ path('app_home') }}#free-course">{{ "Free Course"|trans }}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_home') }}#testimonials">Testimonials</a>
+					<a class="nav-link" href="{{ path('app_home') }}#testimonials">{{"Testimonials"|trans }}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_home') }}#our-partners">Partners</a>
+					<a class="nav-link" href="{{ path('app_home') }}#our-partners">{{"Partners"|trans }}</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="bi bi-globe fs-5"></i>
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<li>
+							<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'_locale': 'en'})) }}">{{"English"|trans }}</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'_locale': 'ar'})) }}">{{"Arabic"|trans }}</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'_locale': 'ru'})) }}">{{"Russian"|trans }}</a>
+						</li>
+					</ul>
 				</li>
 			</ul>
+
 			<div class="d-flex ms-5">
 				{% if app.user %}
-						<a href="{{ path('app_login') }}" class="btn btn-eminence">{{ app.user.name }}</a>
-					{% else %}
-						<a href="{{ path('app_login') }}" class="btn btn-eminence">Login</a>
+					<a href="{{ path('app_login') }}" class="btn btn-eminence">{{ app.user.name }}</a>
+				{% else %}
+					<a href="{{ path('app_login') }}" class="btn btn-eminence">{{"Login"|trans }}</a>
 				{% endif %}
 			</div>
 		</div>
