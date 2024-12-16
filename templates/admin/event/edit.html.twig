@@ -1,0 +1,16 @@
+{% extends 'admin/base.html.twig' %}
+{% import 'macros/_links.html.twig' as links %}
+
+
+{% block h1 %}Edit Event
+{% endblock %}
+{% block cardActions %}
+	<div>
+		{{ links.back('admin_event_index') }}
+		{{ include('admin/event/_delete_form.html.twig') }}
+	</div>
+{% endblock %}
+
+{% block body %}
+	{{ include('admin/event/_form.html.twig', {'button_label': 'Update'}) }}
+{% endblock %}

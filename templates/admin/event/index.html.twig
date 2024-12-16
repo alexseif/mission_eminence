@@ -1,0 +1,55 @@
+{% extends 'admin/base.html.twig' %}
+{% import 'macros/_links.html.twig' as links %}
+
+{% block h1 %}Events
+{% endblock %}
+{% block cardActions %}
+	<div>
+		{{ links.add('admin_event_new') }}
+	</div>
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		{% for event in events %}
+			<div class="col-4">
+				{% include 'admin/event/_card.html.twig' %}
+			</div>
+			<!-- .col-4 -->
+		{% endfor %}
+	</div>
+	<!-- .row -->
+
+    <table class="table d-none">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.title }}</td>
+                <td>{{ event.start ? event.start|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.end ? event.end|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ event.description }}</td>
+                <td>
+                    <a href="{{ path('admin_event_show', {'id': event.id}) }}">show</a>
+                    <a href="{{ path('admin_event_edit', {'id': event.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
