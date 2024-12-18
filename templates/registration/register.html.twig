@@ -4,29 +4,36 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container" id="registration">
-		<div class="registration-form w-50 mx-auto">
-			<div class="card border-1 border-gold text-gold">
-				<div class="card-header border-1 border-gold">
-					<h1 class="card-title">
-						Registration
-					</h1>
+	<section id="registration">
+		<div class="container">
+			<div class="registration-form w-50 mx-auto">
+				<div class="card border-1 border-gold text-gold">
+					<div class="card-header border-1 border-gold">
+						<h1 class="card-title">
+							Registration
+						</h1>
+					</div>
+					{{ form_start(registrationForm) }}
+					<!-- /.card-header -->
+					<div class="card-body">
+						{{ form_errors(registrationForm) }}
+						{{ form_widget(registrationForm)}}
+					</div>
+					<!-- /.card-body -->
+					<div class="card-footer">
+						<button type="submit" class="btn btn-eminence fw-bold">Submit</button>
+					</di>
+					{{ form_end(registrationForm)}}
 				</div>
-				{{ form_start(registrationForm) }}
-				<!-- /.card-header -->
-				<div class="card-body">
-					{{ form_errors(registrationForm) }}
-					{{ form_widget(registrationForm)}}
-				</div>
-				<!-- /.card-body -->
-				<div class="card-footer">
-					<button type="submit" class="btn btn-eminence fw-bold">Submit</button>
-				</di>
-				{{ form_end(registrationForm)}}
+				<!-- /.card -->
 			</div>
-			<!-- /.card -->
+			<!-- /.registration-form -->
 		</div>
-		<!-- /.registration-form -->
-	</div>
+		<!-- /.container -->
+	</section>
 	<!-- /#registration -->
+	<hr/>
+	<div class="container text-center">
+		{% include 'home/_our_partners.html.twig' %}
+	</div>
 {% endblock %}
