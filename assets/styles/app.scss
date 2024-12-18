@@ -46,6 +46,7 @@ $theme-colors: (
 $font-size-base: 1rem;
 $font-size-lg: 1.875rem;
 
+
 $font-family-base: 'Beautifully Delicious Script', sans-serif;
 $dark: map-get($theme-colors, 'black');
 $body-bg-dark: map-get($theme-colors, 'black');
@@ -61,6 +62,8 @@ $card-border-width: 0;
 $input-focus-border-color: map-get($theme-colors, 'gold');
 $input-focus-box-shadow: 0 0 0 0.25rem rgba(171, 151, 62, 0.25);
 $input-placeholder-color: map-get($theme-colors, 'gold');
+
+$h3-font-size-mobile: 2.5rem;
 // 5. Navbar configuration
 $navbar: (
     'brand-height': 5rem,
@@ -78,8 +81,29 @@ $navbar: (
 @import "~bootstrap/scss/reboot";
 @import "~bootstrap/scss/bootstrap";
 
-@include media-breakpoint-up(lg) {
-    $font-size-base: 1.875rem;
+html {
+    font-size: 2rem;
+
+    @include media-breakpoint-up(sm) {
+        font-size: 2rem;
+    }
+
+    @include media-breakpoint-up(lg) {
+        font-size: 1rem;
+    }
+}
+
+
+h3 {
+    font-size: 2.5rem;
+
+    @include media-breakpoint-up(sm) {
+        font-size: 2.5rem;
+    }
+
+    @include media-breakpoint-up(lg) {
+        font-size: 1.75rem;
+    }
 }
 
 
@@ -93,7 +117,7 @@ $navbar: (
     font-size: 2rem;
 
     @include media-breakpoint-up(lg) {
-        font-size: $font-size-base;
+        font-size: 1rem;
         border-radius: 2.5rem;
         padding: 0.3125rem 2.5rem 0.625rem;
     }
@@ -138,10 +162,8 @@ $navbar: (
 
 main {
     .fullpage {
-        min-height: 50vh;
-
         @include media-breakpoint-up(lg) {
-            min-height: 100vh;
+            min-height: 100vh !important;
         }
     }
 }
@@ -153,8 +175,13 @@ main {
         font-weight: bold;
         margin-left: 3rem;
         margin-bottom: 3rem;
+        font-size: 2rem;
 
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(sm) {
+            font-size: 2rem;
+        }
+
+        @include media-breakpoint-up(lg) {
             letter-spacing: 4px;
             font-size: 3rem;
         }
@@ -165,6 +192,7 @@ main {
     }
 
     #hero {
+        min-height: 50vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -300,7 +328,13 @@ main {
         overflow: hidden;
 
         h2 {
-            margin-top: 20vh;
+            margin-top: 10vh;
+        }
+
+        @include media-breakpoint-up(lg) {
+            h2 {
+                margin-top: 20vh;
+            }
         }
 
         #background-video {
@@ -335,7 +369,6 @@ main {
         p {
             max-width: 900px;
             font-family: 'Montserrat', 'Open sans';
-            font-size: 1.4rem;
             margin: 0 auto;
             padding-bottom: 3rem;
         }
@@ -345,11 +378,15 @@ main {
             background-color: map-get($theme-colors, 'green');
             border: 2px solid #ffffff;
             border-radius: 28px;
-            max-width: 250px;
             padding: 10px;
             text-decoration: none;
             display: inline-block;
             font-weight: bold;
+            margin-bottom: 10vh;
+
+            @include media-breakpoint-up(lg) {
+                max-width: 15.6250rem;
+            }
         }
     }
 
