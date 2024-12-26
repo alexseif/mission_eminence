@@ -1,0 +1,13 @@
+{% extends 'admin/base.html.twig' %}
+{% import 'macros/_links.html.twig' as links %}
+
+{% block h1 %}New User
+{% endblock %}
+{% block cardActions %}
+	<div>
+		{{ links.back('admin_user_index')}}
+	</div>
+{% endblock %}
+{% block body %}
+	{{ include('admin/user/_form.html.twig') }}
+{% endblock %}
