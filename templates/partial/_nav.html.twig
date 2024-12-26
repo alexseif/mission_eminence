@@ -41,11 +41,24 @@
 			</ul>
 
 			<div class="d-flex ms-5">
-				{% if app.user %}
-					<a href="{{ path('app_login') }}" class="btn btn-eminence">{{ app.user.name }}</a>
-				{% else %}
-					<a href="{{ path('app_login') }}" class="btn btn-eminence">{{"Login"|trans }}</a>
-				{% endif %}
+				<div>
+					{% if app.user %}
+						{# <a href="{{ path('app_login') }}" class=" btn btn-eminence"></a> #}
+						<a class="nav-link dropdown-toggle btn btn-eminence" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							{{ app.user.name }}
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="userDropdown">
+							<li>
+								<a class="dropdown-item" href="{{ path('admin_home') }}">{{"Dashboard"|trans }}</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{{ path('app_logout') }}">{{"Logout"|trans }}</a>
+							</li>
+						</ul>
+					{% else %}
+						<a href="{{ path('app_login') }}" class="btn btn-eminence">{{"Login"|trans }}</a>
+					{% endif %}
+				</div>
 			</div>
 		</div>
 	</div>

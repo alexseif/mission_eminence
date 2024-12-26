@@ -9,14 +9,14 @@
 					<li class="carousel-item active">
 						<div class="row">
 							{% for testimonial in testimonials %}
-								<div class="col-md-4">
+								<div class="col-md-4 text-center">
 									<figure class="figure">
 										<img src="{{ vich_uploader_asset(testimonial) }}" class="figure-img img-fluid rounded" alt="{{ testimonial.alt }}"/>
 										<figcaption class="figure-caption"></figcaption>
 									</figure>
 								</div>
 								<!-- /.col-md-4 -->
-								{% if loop.index0 % 3 == 0%}
+								{% if loop.index % 3 == 0%}
 								</li>
 								<div class="row">
 									<li class="carousel-item active">
