@@ -1,7 +1,8 @@
 {% extends 'admin/base.html.twig' %}
 {% import 'macros/_links.html.twig' as links %}
 
-{% block h1 %}Users
+{% block h1 %}
+	{{ role }}
 {% endblock %}
 {% block cardActions %}
 	<div>
@@ -14,14 +15,15 @@
 			<tr>
 				<th>Id</th>
 				<th>Email</th>
-				<th>Roles</th>
 				<th>Name</th>
-				<th>Birthday</th>
-				<th>Country</th>
-				<th>Number</th>
-				<th>ReferredBy</th>
-				<th>IGeniusUserID</th>
-				<th>NameOfEnroller</th>
+				{% if role == 'Student' %}
+					<th>Birthday</th>
+					<th>Country</th>
+					<th>Number</th>
+					<th>ReferredBy</th>
+					<th>IGeniusUserID</th>
+					<th>NameOfEnroller</th>
+				{% endif %}
 				<th>actions</th>
 			</tr>
 		</thead>
@@ -30,14 +32,15 @@
 				<tr>
 					<td>{{ user.id }}</td>
 					<td>{{ user.email }}</td>
-					<td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
 					<td>{{ user.name }}</td>
-					<td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
-					<td>{{ user.country }}</td>
-					<td>{{ user.number }}</td>
-					<td>{{ user.referredBy }}</td>
-					<td>{{ user.iGeniusUserID }}</td>
-					<td>{{ user.nameOfEnroller }}</td>
+					{% if role == 'Student' %}
+						<td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
+						<td>{{ user.country }}</td>
+						<td>{{ user.number }}</td>
+						<td>{{ user.referredBy }}</td>
+						<td>{{ user.iGeniusUserID }}</td>
+						<td>{{ user.nameOfEnroller }}</td>
+					{% endif %}
 					<td>
 						{{ links.showEdit('admin_user', user.id)}}
 					</td>

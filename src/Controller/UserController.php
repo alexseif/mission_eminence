@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\User1Type;
+use App\Form\AdminType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,10 +15,12 @@ use Symfony\Component\Routing\Attribute\Route;
 final class UserController extends AbstractController
 {
     #[Route(name: 'admin_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, Request $request): Response
     {
+        $role = $request->query->get('role') ?? 'Admin';
         return $this->render('admin/user/index.html.twig', [
-            'users' => $userRepository->findByRoles('ROLE_ADMIN')
+            'users' => $userRepository->findByRoles('ROLE_' . strtoupper($role)),
+            'role' => $role,
         ]);
     }
 
@@ -26,10 +28,12 @@ final class UserController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $form = $this->createForm(User1Type::class, $user);
+        $user->setRoles(['ROLE_ADMIN']);
+        $form = $this->createForm(AdminType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -53,7 +57,7 @@ final class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'admin_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(User1Type::class, $user);
+        $form = $this->createForm(AdminType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
