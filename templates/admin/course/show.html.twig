@@ -4,11 +4,9 @@
 {% block h1 %}Course
 {% endblock %}
 {% block cardActions %}
-	<div>
 		{{ links.back('admin_course_index') }}
 		{{ links.edit('admin_course_edit', course.id) }}
 		{{ include('admin/course/_delete_form.html.twig') }}
-	</div>
 {% endblock %}
 
 {% block body %}

@@ -4,9 +4,7 @@
 {% block h1 %}New MMM
 {% endblock %}
 {% block cardActions %}
-	<div>
-		{{ links.back('admin_mmm_index') }}
-	</div>
+	{{ links.back('admin_mmm_index') }}
 {% endblock %}
 {% block body %}
 	{{ include('admin/mmm/_form.html.twig') }}

@@ -96,3 +96,9 @@ a.nav-link {
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
+
+#testimonial_imageFile_delete {
+    +label {
+        color: red;
+    }
+}

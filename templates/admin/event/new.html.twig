@@ -4,9 +4,7 @@
 {% block h1 %}New Event
 {% endblock %}
 {% block cardActions %}
-	<div>
-		{{ links.back('admin_event_index') }}
-	</div>
+	{{ links.back('admin_event_index') }}
 {% endblock %}
 {% block body %}
 	{{ include('admin/event/_form.html.twig') }}

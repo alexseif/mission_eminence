@@ -4,9 +4,7 @@
 {% block h1 %}New Partnership
 {% endblock %}
 {% block cardActions %}
-	<div>
-		{{ links.back('admin_partnership_index') }}
-	</div>
+	{{ links.back('admin_partnership_index') }}
 {% endblock %}
 {% block body %}
 	{{ include('admin/partnership/_form.html.twig') }}

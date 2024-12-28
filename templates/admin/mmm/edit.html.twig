@@ -5,10 +5,8 @@
 {% block h1 %}Edit MMM
 {% endblock %}
 {% block cardActions %}
-	<div>
-		{{ links.back('admin_mmm_index') }}
-		{{ include('admin/mmm/_delete_form.html.twig') }}
-	</div>
+	{{ links.back('admin_mmm_index') }}
+	{{ include('admin/mmm/_delete_form.html.twig') }}
 {% endblock %}
 
 {% block body %}

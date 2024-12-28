@@ -4,11 +4,9 @@
 {% block h1 %}Event
 {% endblock %}
 {% block cardActions %}
-	<div>
-		{{ links.back('admin_event_index') }}
-		{{ links.edit('admin_event_edit', event.id) }}
-		{{ include('admin/event/_delete_form.html.twig') }}
-	</div>
+	{{ links.back('admin_event_index') }}
+	{{ links.edit('admin_event_edit', event.id) }}
+	{{ include('admin/event/_delete_form.html.twig') }}
 {% endblock %}
 
 {% block body %}

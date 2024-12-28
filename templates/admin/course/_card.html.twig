@@ -1,6 +1,8 @@
 {% import 'macros/_links.html.twig' as links %}
 <article class="card">
-	<img class="card-img-top" src="{{ vich_uploader_asset(course) }}" alt="{{ course.title}}">
+	{% if course.image %}
+		<img class="card-img-top" src="{{ vich_uploader_asset(course) }}" alt="{{ course.title}}">
+	{% endif %}
 	<div class="card-header d-flex flex-wrap">
 		<h1 class="card-title">{{ course.title }}</h1>
 		<div class="ms-auto">
@@ -12,7 +14,7 @@
 		<!-- .ms-auto -->
 	</div>
 	<!-- .card-header -->
-	<div class="embed-responsive embed-responsive-16by9 embed-responsive-item">
+	<div class="ratio ratio-16x9">x
 		{{  course.vidoeEmbed|raw }}
 	</div>
 	<div class="card-body">
