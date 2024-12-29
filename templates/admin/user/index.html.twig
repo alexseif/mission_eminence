@@ -5,7 +5,9 @@
 	{{ role }}
 {% endblock %}
 {% block cardActions %}
-	{{ links.add('admin_user_new') }}
+	{% if role == 'Admin' %}
+		{{ links.add('admin_user_new') }}
+	{% endif %}
 {% endblock %}
 {% block body %}
 	<table class="table">
