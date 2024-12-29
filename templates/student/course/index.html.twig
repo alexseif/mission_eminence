@@ -1,0 +1,18 @@
+{% extends 'student/base.html.twig' %}
+{% import 'macros/_links.html.twig' as links %}
+
+{% block h1 %}Course
+{% endblock %}
+{% block body %}
+	<div class="row">
+		{% for course in courses %}
+			<div class="col-4">
+				{% include 'student/course/_card.html.twig' %}
+			</div>
+			<!-- .col-4 -->
+		{% endfor %}
+	</div>
+	<!-- .row -->
+
+
+{% endblock %}

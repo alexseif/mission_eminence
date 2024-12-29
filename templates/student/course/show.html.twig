@@ -1,0 +1,17 @@
+{% extends 'student/base.html.twig' %}
+{% import 'macros/_links.html.twig' as links %}
+
+{% block h1 %}{{ course.title }}
+{% endblock %}
+{% block cardActions %}
+		{{ links.back('student_course_index') }}
+{% endblock %}
+
+{% block body %}
+	<div class="ratio ratio-16x9">x
+		{{  course.vidoeEmbed|raw }}
+	</div>
+	<div class="card-body">
+		{{ course.description|raw }}
+	</div>
+{% endblock %}

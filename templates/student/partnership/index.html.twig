@@ -1,0 +1,34 @@
+{% extends 'student/base.html.twig' %}
+{% import 'macros/_links.html.twig' as links %}
+
+{% block h1 %}Partnership
+{% endblock %}
+{% block body %}
+	<div class="row">
+		{% for partnership in partnerships %}
+			<div class="col-4">
+				{% if partnership.link %}
+					<a href="{{ partnership.link }}">
+					{% endif %}
+					<div class="card">
+						<img class="card-img-top" src="{{ vich_uploader_asset(partnership) }}" alt="{{ partnership.name}}">
+						<div class="card-header d-flex flex-wrap">
+							<h1 class="card-title">{{ partnership.name }}</h1>
+						</div>
+						<!-- .card-header -->
+						<div class="card-body">
+							{{ partnership.description|raw }}
+						</div>
+						<!-- .card-body -->
+					</div>
+					<!-- .card -->
+					{% if partnership.link %}
+					</a>
+				{% endif %}
+			</div>
+			<!-- .col-4 -->
+		{% endfor %}
+	</div>
+	<!-- .row -->
+
+{% endblock %}

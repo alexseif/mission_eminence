@@ -16,6 +16,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('admin_calendar', './assets/admin/calendar.js')
     .addEntry('admin', './assets/admin/admin.js')
+    .addEntry('student_calendar', './assets/student/calendar.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

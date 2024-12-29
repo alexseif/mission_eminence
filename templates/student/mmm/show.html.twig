@@ -1,0 +1,15 @@
+{% extends 'student/base.html.twig' %}
+{% import 'macros/_links.html.twig' as links %}
+
+{% block h1 %}MMM
+{% endblock %}
+{% block cardActions %}
+	{{ links.back('student_mmm_index') }}
+{% endblock %}
+
+{% block body %}
+<img class="card-img-top" src="{{ vich_uploader_asset(mmm) }}" alt="{{ mmm.title}}">
+<div class="card-body">
+		{{ mmm.content|raw }}
+	</div>
+{% endblock %}
