@@ -8,8 +8,8 @@
 {% endblock %}
 
 {% block body %}
-<img class="card-img-top" src="{{ vich_uploader_asset(mmm) }}" alt="{{ mmm.title}}">
-<div class="card-body">
+	<img class="card-img-top" src="{{ vich_uploader_asset(mmm) }}" alt="{{ mmm.title}}">
+	<div class="card-body">
 		{{ mmm.content|raw }}
 	</div>
 {% endblock %}

@@ -1,10 +1,11 @@
 {% extends 'student/base.html.twig' %}
 {% import 'macros/_links.html.twig' as links %}
 
-{% block h1 %}{{ course.title }}
+{% block h1 %}
+	{{ course.title }}
 {% endblock %}
 {% block cardActions %}
-		{{ links.back('student_course_index') }}
+	{{ links.back('student_course_index') }}
 {% endblock %}
 
 {% block body %}

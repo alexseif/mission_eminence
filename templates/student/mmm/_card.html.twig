@@ -1,15 +1,15 @@
 {% import 'macros/_links.html.twig' as links %}
 <a href="{{ path('student_mmm_show', {'id': mmm.id}) }}">
-<article class="card">
-	<img class="card-img-top" src="{{ vich_uploader_asset(mmm) }}" alt="{{ mmm.title}}">
-	<div class="card-header d-flex flex-wrap">
-		<h1 class="card-title">{{ mmm.title }}</h1>
-	</div>
-	<!-- .card-header -->
-	<div class="card-body">
-		{{ mmm.content|raw }}
-	</div>
-	<!-- .card-body -->
-</article>
-<!-- .card -->
+	<article class="card">
+		<img class="card-img-top" src="{{ vich_uploader_asset(mmm) }}" alt="{{ mmm.title}}">
+		<div class="card-header d-flex flex-wrap">
+			<h1 class="card-title">{{ mmm.title }}</h1>
+		</div>
+		<!-- .card-header -->
+		<div class="card-body">
+			{{ mmm.content|raw }}
+		</div>
+		<!-- .card-body -->
+	</article>
+	<!-- .card -->
 </a>
