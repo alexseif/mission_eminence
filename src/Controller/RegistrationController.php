@@ -7,6 +7,7 @@ use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -28,37 +29,43 @@ class RegistrationController extends AbstractController
         FormLoginAuthenticator $authenticator,
         EntityManagerInterface $entityManager,
         VerifyEmailHelperInterface $verifyEmailHelper,
-        MailerInterface $mailer
+        MailerInterface $mailer,
+        UserRepository $userRepository
     ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password 
-            $user->setPassword($passwordHasher->hashPassword($user, $form->get('plainPassword')->getData()));
-            $user->setRoles(['ROLE_STUDENT']);
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $existingUser = $userRepository->findOneBy(['email' => $user->getEmail()]);
+            if ($existingUser) {
+                $form->get('email')->addError(new FormError('This email is already in use.'));
+            } else {
+                // encode the plain password 
+                $user->setPassword($passwordHasher->hashPassword($user, $form->get('plainPassword')->getData()));
+                $user->setRoles(['ROLE_STUDENT']);
+                $entityManager->persist($user);
+                $entityManager->flush();
 
 
-            // Send a verification email
-            $signatureComponents = $verifyEmailHelper->generateSignature(
-                'app_verify_email',
-                $user->getId(),
-                $user->getEmail()
-            );
+                // Send a verification email
+                $signatureComponents = $verifyEmailHelper->generateSignature(
+                    'app_verify_email',
+                    $user->getId(),
+                    $user->getEmail()
+                );
 
-            $email = (new Email())
-                ->from('your_email@example.com')
-                ->to($user->getEmail())
-                ->subject('Verify your email address')
-                ->html('<p>Click on the link to verify your email address: <a href="' . $signatureComponents->getSignedUrl() . '">Verify</a></p>');
+                $email = (new Email())
+                    ->from('your_email@example.com')
+                    ->to($user->getEmail())
+                    ->subject('Verify your email address')
+                    ->html('<p>Click on the link to verify your email address: <a href="' . $signatureComponents->getSignedUrl() . '">Verify</a></p>');
 
-            $mailer->send($email);
+                $mailer->send($email);
 
 
-            // auto-login the user after registration 
-            return $userAuthenticator->authenticateUser($user, $authenticator, $request);
+                // auto-login the user after registration 
+                return $userAuthenticator->authenticateUser($user, $authenticator, $request);
+            }
         }
         return $this->render('registration/register.html.twig', ['registrationForm' => $form->createView(),]);
     }
