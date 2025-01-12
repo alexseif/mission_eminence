@@ -14,9 +14,7 @@
 		<!-- .ms-auto -->
 	</div>
 	<!-- .card-header -->
-	<div class="ratio ratio-16x9">
-		{{  course.vidoeEmbed|raw }}
-	</div>
+	
 	<div class="card-body">
 		{{ course.description|raw }}
 	</div>
@@ -29,7 +27,7 @@
 					<td>{{ course.day }}</td>
 				</tr>
 				<tr>
-					<th>Locaked</th>
+					<th>Locked</th>
 					<td>{{ course.locked ? 'Locked': 'Open' }}</td>
 				</tr>
 				<tr>
@@ -44,5 +42,8 @@
 		</table>
 	</div>
 	<!-- .card-footer  -->
+	<div class="ratio ratio-16x9">
+		{{  course.vidoeEmbed|raw }}
+	</div>
 </article>
 <!-- .card -->

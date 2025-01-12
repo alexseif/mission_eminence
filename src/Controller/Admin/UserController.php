@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\AdminType;
+use App\Repository\CourseRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,10 +59,11 @@ final class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'admin_user_show', methods: ['GET'])]
-    public function show(User $user): Response
+    public function show(User $user, CourseRepository $courseRepository): Response
     {
         return $this->render('admin/user/show.html.twig', [
             'user' => $user,
+            'courses' => $courseRepository->findAll(),
         ]);
     }
 

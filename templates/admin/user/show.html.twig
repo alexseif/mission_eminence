@@ -12,50 +12,106 @@
 
 	<table class="table">
 		<tbody>
-			<tr>
-				<th>Id</th>
-				<td>{{ user.id }}</td>
+			{# <tr> #}
+			{# <th>Id</th> #}
+			{# <td>{{ user.id }}</td> #}
+			{# </tr> #}
+				<tr>
+					<th>
+				Name
+				</th>
+					<td>
+				{{ user.name }}
+				</td>
+					<th>
+				Email
+				</th>
+					<td>
+				{{ user.email }}
+			</td>
 			</tr>
-			<tr>
-				<th>Email</th>
-				<td>{{ user.email }}</td>
-			</tr>
-			<tr>
-				<th>Password</th>
-				<td>{{ user.password }}</td>
-			</tr>
-			<tr>
-				<th>Roles</th>
-				<td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
-			</tr>
-			<tr>
-				<th>Name</th>
-				<td>{{ user.name }}</td>
-			</tr>
-			<tr>
-				<th>Birthday</th>
-				<td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
-			</tr>
-			<tr>
-				<th>Country</th>
-				<td>{{ user.country }}</td>
-			</tr>
-			<tr>
-				<th>Number</th>
-				<td>{{ user.number }}</td>
+			{# <tr> #}
+			{# <th>Password</th> #}
+			{# TODO: change password from here #}
+			{# <td>{{ user.password }}</td> #}
+				{# </tr> #}
+					<tr>
+				<th>
+				Birthday
+					</th>
+				<td>
+				{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}
+					</td>
+				<th>
+				Country
+					</th>
+				<td>
+			{{ user.country }}
+			</td>
+				</tr>
+					<tr><th>
+				Number</th> <td colspan="3">{{ user.number }}</td>
 			</tr>
 			<tr>
 				<th>ReferredBy</th>
 				<td>{{ user.referredBy }}</td>
-			</tr>
-			<tr>
 				<th>IGeniusUserID</th>
 				<td>{{ user.iGeniusUserID }}</td>
 			</tr>
 			<tr>
 				<th>NameOfEnroller</th>
-				<td>{{ user.nameOfEnroller }}</td>
+				<td colspan="3">{{ user.nameOfEnroller }}</td>
 			</tr>
 		</tbody>
 	</table>
+	<div class="card-footer">
+		<h2>Courses</h2>
+		<div class="row">
+			{% for course in user.courses %}
+				<div class="col-md-4">
+					<form id="removeForm" method="post" action="{{ path('app_enrollment_remove') }}">
+						<input name="student" value="{{ user.id }}" type="hidden"/>
+						<input name="course" value="{{ course.id }}" type="hidden"/>
+						<button class="btn btn-link text-danger" type="submit">Remove</button>
+					</form>
+					{% include('admin/course/_card.html.twig') %}
+				</div>
+			{% else %}
+				No Courses
+			{% endfor %}
+		</div>
+	</div>
+	<div class="card-footer">
+		<button class="btn btn-sm btn-link text-gold" data-bs-toggle="modal" data-bs-target="#enrollModal">Enroll in Course</button>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="enrollModal" tabindex="-1" aria-labelledby="enrollModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="enrollModalLabel">Enroll in Course</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="enrollForm" method="post" action="{{ path('app_enrollment_enroll') }}">
+						<div class="mb-3">
+							<label for="course" class="form-label">Select Course</label>
+							<select class="form-select" id="course" name="course">
+								{% for course in courses %}
+									<option value="{{ course.id }}">{{ course.title }}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<input type="hidden" name="student" value="{{ user.id }}">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link text-grey" data-bs-dismiss="modal">Close</button>
+					<button type="submit" form="enrollForm" class="btn btn-link text-gold">Enroll</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 {% endblock %}

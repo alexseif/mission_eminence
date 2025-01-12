@@ -102,3 +102,13 @@ a.nav-link {
         color: red;
     }
 }
+
+
+.btn-link {
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
