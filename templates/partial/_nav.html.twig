@@ -22,21 +22,21 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('app_home', {'_locale': app.request.locale}) }}#our-partners">{{ "Partners"|trans }}</a>
 				</li>
-				<li class="nav-item dropdown">
+				<li class="nav-item dropdown language">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						<i class="bi bi-globe fs-5"></i>
 						{% set current_locale = {
 							'en': 'English'|trans,
-							'ar': 'عربي'|trans,
-							'ru': 'Русский'|trans
+							'ar': 'Arabic'|trans,
+							'ru': 'Russian'|trans
 						} %}
 						{{ current_locale[app.request.locale] }}
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 						{% set locales = {
 							'en': 'English'|trans,
-							'ar': 'عربي'|trans,
-							'ru': 'Русский'|trans
+							'ar': 'Arabic'|trans,
+							'ru': 'Russian'|trans
 						} %}
 						{% for locale, label in locales %}
 							<li>
