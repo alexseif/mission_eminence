@@ -1,33 +1,36 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Calendar } from '@fullcalendar/core';
+import {
+    Calendar
+} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min';
+
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
     var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
-    var eventForm = document.getElementById('eventForm');
-    var eventTitle = document.getElementById('eventTitle');
-    var eventDescription = document.getElementById('eventDescription');
-    var eventStart = document.getElementById('eventStart');
-    var eventEnd = document.getElementById('eventEnd');
-    var editEventBtn = document.getElementById('editEventBtn');
+    var modalTitle = document.getElementById('eventModalLabel');
+    var modalContent = document.getElementById('modalContent');
+
+    var eventsUrl = calendarEl.getAttribute('data-url');
+    console.log(eventsUrl);
 
     var calendar = new Calendar(calendarEl, {
-        plugins: [dayGridPlugin, interactionPlugin],
+        plugins: [dayGridPlugin, interactionPlugin, bootstrap5Plugin],
+        themeSystem: 'bootstrap5',
         initialView: 'dayGridMonth',
-        events: '/student/calendar/api/events',
+        events: eventsUrl,
         eventClick: function (info) {
-            console.log(info);
-            console.log(info.event);
-            console.log(info.event.extendedProps);
-            eventTitle.value = info.event.title;
-            eventDescription.value = info.event.extendedProps.description;
-            eventStart.value = info.event.extendedProps.start;
-            eventEnd.value = info.event.extendedProps.end;
-            eventModal.show();
+            info.jsEvent.preventDefault(); // Prevent the default action (redirect)
+            fetch(`/en/student/events/${info.event.id}`)
+                .then(response => response.json())
+                .then(data => {
+                    modalTitle.textContent = data.eventTitle;
+                    modalContent.innerHTML = data.content;
+                    eventModal.show();
+                });
         }
     });
 

@@ -1,6 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Calendar } from '@fullcalendar/core';
+import {
+    Calendar
+} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
@@ -15,20 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var eventEnd = document.getElementById('eventEnd');
     var editEventBtn = document.getElementById('editEventBtn');
 
+    var eventsUrl = calendarEl.getAttribute('data-url');
     var calendar = new Calendar(calendarEl, {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
-        events: '/admin/calendar/api/events',
-        eventClick: function (info) {
-            console.log(info);
-            console.log(info.event);
-            console.log(info.event.extendedProps);
-            eventTitle.value = info.event.title;
-            eventDescription.value = info.event.extendedProps.description;
-            eventStart.value = info.event.extendedProps.start;
-            eventEnd.value = info.event.extendedProps.end;
-            eventModal.show();
-        }
+        events: eventsUrl
     });
 
     calendar.render();

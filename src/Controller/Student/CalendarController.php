@@ -20,7 +20,7 @@ class CalendarController extends AbstractController
             'controller_name' => 'CalendarController',
         ]);
     }
-    #[Route('/api/events', name: 'calendar_api_events')]
+    #[Route('/api/events', name: 'student_calendar_api_events')]
     public function events(EventRepository $eventRepository): JsonResponse
     {
         $events = $eventRepository->findAll();
