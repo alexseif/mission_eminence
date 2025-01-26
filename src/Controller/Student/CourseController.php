@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted('ROLE_STUDENT')]
-#[Route('/course/course')]
+#[Route('/student/course')]
 final class CourseController extends AbstractController
 {
 

@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted('ROLE_STUDENT')]
-#[Route('/course/calendar')]
+#[Route('/student/calendar')]
 class CalendarController extends AbstractController
 {
     #[Route('/', name: 'student_calendar_index')]

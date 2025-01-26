@@ -57,17 +57,26 @@
 							{{ app.user.name }}
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="userDropdown">
+							{% if is_granted('ROLE_ADMIN') %}
+								<li>
+									<a class="dropdown-item" href="{{ path('admin_home') }}">
+										{{ "Admin Dashboard"|trans }}
+									</a>
+								</li>
+							{% endif %}
+							{% if is_granted('ROLE_STUDENT') %}
+								<li>
+									<a class="dropdown-item" href="{{ path('student_home') }}">
+										{{ "Student Dashboard"|trans }}
+									</a>
+								</li>
+							{% endif %}
 							<li>
-								<a class="dropdown-item" href="{{ path(is_granted('ROLE_ADMIN')?'admin_home':'student_home') }}">
-									{{"Dashboard"|trans }}
-								</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="{{ path('app_logout') }}">{{"Logout"|trans }}</a>
+								<a class="dropdown-item" href="{{ path('app_logout') }}">{{ "Logout"|trans }}</a>
 							</li>
 						</ul>
 					{% else %}
-						<a href="{{ path('app_login') }}" class="btn btn-eminence">{{"Login"|trans }}</a>
+						<a href="{{ path('app_login') }}" class="btn btn-eminence">{{ "Login"|trans }}</a>
 					{% endif %}
 				</div>
 			</div>

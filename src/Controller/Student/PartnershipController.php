@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted('ROLE_STUDENT')]
-#[Route('/course/partnership')]
+#[Route('/student/partnership')]
 final class PartnershipController extends AbstractController
 {
     #[Route(name: 'student_partnership_index', methods: ['GET'])]
