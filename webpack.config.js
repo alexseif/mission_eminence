@@ -14,6 +14,7 @@ Encore
 
     // Entry point for your app
     .addEntry('app', './assets/app.js')
+    .addEntry('app-rtl', './assets/app-rtl.js')
     .addEntry('admin_calendar', './assets/admin/calendar.js')
     .addEntry('admin', './assets/admin/admin.js')
     .addEntry('student_calendar', './assets/student/calendar.js')

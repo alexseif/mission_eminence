@@ -1,0 +1,7 @@
+// Just import your app styles - Bootstrap RTL will be handled by the dir="rtl" attribute
+@import "./app";
+
+// Add any additional RTL-specific overrides here if needed
+[dir="rtl"] {
+    // Your RTL-specific styles that aren't handled by Bootstrap
+}

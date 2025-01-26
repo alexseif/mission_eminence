@@ -1,5 +1,16 @@
+# Handle root URL
+root:
+    path: /
+    controller: App\Controller\HomeController::indexRedirect
+
+# Handle all other routes with locale prefix
 controllers:
     resource:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+    prefix: "/{_locale}"
+    requirements:
+        _locale: "%app_locales%"
+    defaults:
+        _locale: "en"

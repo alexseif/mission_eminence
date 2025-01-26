@@ -11,31 +11,40 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav mx-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_home') }}#services">{{ "Services"|trans }}</a>
+					<a class="nav-link" href="{{ path('app_home', {'_locale': app.request.locale}) }}#services">{{ "Services"|trans }}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_home') }}#free-course">{{ "Free Course"|trans }}</a>
+					<a class="nav-link" href="{{ path('app_home', {'_locale': app.request.locale}) }}#free-course">{{ "Free Course"|trans }}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_home') }}#testimonials">{{"Testimonials"|trans }}</a>
+					<a class="nav-link" href="{{ path('app_home', {'_locale': app.request.locale}) }}#testimonials">{{ "Testimonials"|trans }}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_home') }}#our-partners">{{"Partners"|trans }}</a>
+					<a class="nav-link" href="{{ path('app_home', {'_locale': app.request.locale}) }}#our-partners">{{ "Partners"|trans }}</a>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						<i class="bi bi-globe fs-5"></i>
+						{% set current_locale = {
+							'en': 'English'|trans,
+							'ar': 'عربي'|trans,
+							'ru': 'Русский'|trans
+						} %}
+						{{ current_locale[app.request.locale] }}
 					</a>
-					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<li>
-							<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'_locale': 'en'})) }}">{{"English"|trans }}</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'_locale': 'ar'})) }}">{{"Arabic"|trans }}</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'_locale': 'ru'})) }}">{{"Russian"|trans }}</a>
-						</li>
+					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+						{% set locales = {
+							'en': 'English'|trans,
+							'ar': 'عربي'|trans,
+							'ru': 'Русский'|trans
+						} %}
+						{% for locale, label in locales %}
+							<li>
+								<a class="dropdown-item {% if app.request.locale == locale %}active{% endif %}" href="{{ path(app.request.attributes.get('_route', 'app_home'), app.request.attributes.get('_route_params', [])|merge({'_locale': locale})) }}" {% if app.request.locale == locale %} aria-current="true" {% endif %}>
+									{{ label }}
+								</a>
+							</li>
+						{% endfor %}
 					</ul>
 				</li>
 			</ul>
