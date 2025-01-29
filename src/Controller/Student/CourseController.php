@@ -50,8 +50,45 @@ final class CourseController extends AbstractController
     #[Route('/{id}', name: 'student_course_show', methods: ['GET'])]
     public function show(Course $course): Response
     {
+        $user = $this->getUser();
+
+        if (!$course->isStudentEnrolled($user)) {
+            $this->addFlash('error', 'You are not enrolled in this course.');
+            return $this->redirectToRoute('student_course_index');
+        }
+
         return $this->render('student/course/show.html.twig', [
             'course' => $course,
+            'isEnrolled' => true,
         ]);
+    }
+
+    #[Route('/{id}/enroll', name: 'student_course_enroll', methods: ['POST'])]
+    public function enroll(
+        Course $course,
+        EntityManagerInterface $entityManager,
+        Request $request
+    ): Response {
+        if (!$this->isCsrfTokenValid('enroll' . $course->getId(), $request->request->get('_token'))) {
+            $this->addFlash('error', 'Invalid CSRF token.');
+            return $this->redirectToRoute('student_course_index');
+        }
+
+        if ($course->isLocked()) {
+            $this->addFlash('error', 'This course is currently locked.');
+            return $this->redirectToRoute('student_course_index');
+        }
+
+        $user = $this->getUser();
+        if ($course->isStudentEnrolled($user)) {
+            $this->addFlash('warning', 'You are already enrolled in this course.');
+            return $this->redirectToRoute('student_course_show', ['id' => $course->getId()]);
+        }
+
+        $course->addStudent($user);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'You have successfully enrolled in the course.');
+        return $this->redirectToRoute('student_course_show', ['id' => $course->getId()]);
     }
 }

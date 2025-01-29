@@ -184,4 +184,12 @@ class Course
 
         return $this;
     }
+
+    /**
+     * Check if a user is enrolled in this course
+     */
+    public function isStudentEnrolled(User $user): bool
+    {
+        return $this->students->contains($user);
+    }
 }

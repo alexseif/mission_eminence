@@ -11,6 +11,28 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<div
 				class="navbar-nav d-flex ms-auto">
+				<div class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="languageMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						{{ app.request.locale|default('en') }}
+					</a>
+					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageMenu">
+						<li>
+							<a class="dropdown-item" href="{{ path('student_home', {'_locale': 'en'}) }}">
+								{{ "English"|trans }}
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ path('student_home', {'_locale': 'ar'}) }}">
+								{{ "Arabic"|trans }}
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ path('student_home', {'_locale': 'ru'}) }}">
+								{{ "Russian"|trans }}
+							</a>
+						</li>
+					</ul>
+				</div>
 				{# Bootstrap dropdown user menu for symfony 6 and twig #}
 				<div class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
