@@ -1,8 +1,9 @@
 {% trans_default_domain 'admin' %}
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="{{ app.request.locale }}" dir="{{ app.request.locale == 'ar' ? 'rtl' : 'ltr' }}" data-bs-theme="light">
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>
 			{% block title %}
 				{{ block('h1')|striptags }}
@@ -12,14 +13,18 @@
 		</title>
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
 		{% block stylesheets %}
-			{{ encore_entry_link_tags('admin') }}
+			{% if app.request.locale == 'ar' %}
+				{{ encore_entry_link_tags('admin-rtl') }}
+			{% else %}
+				{{ encore_entry_link_tags('admin') }}
+			{% endif %}
 			{# <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> #}
 		{% endblock %}
 		{% block javascripts %}
 		{{ encore_entry_script_tags('admin') }}
 		{# {% block importmap %}{{ importmap('app') }}{% endblock %} #}{% endblock %}
 	</head>
-	<body>
+	<body class="{{ app.request.locale == 'ar' ? 'rtl' : '' }}">
 		{% block header %}
 			{% include 'student/partial/_nav.html.twig' %}
 		{% endblock %}

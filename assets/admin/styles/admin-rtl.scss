@@ -1,0 +1,55 @@
+// Import the main admin styles
+@import "./admin";
+
+// Add RTL-specific overrides
+[dir="rtl"] {
+    // Flip margins and paddings for RTL
+    .ms-auto {
+        margin-left: 0 !important;
+        margin-right: auto !important;
+    }
+
+    .ms-sm-auto {
+        margin-left: 0 !important;
+        margin-right: auto !important;
+    }
+
+    // Adjust sidebar positioning
+    .col-md-9.ms-sm-auto {
+        margin-right: auto !important;
+        margin-left: 0 !important;
+    }
+
+    // Adjust button groups
+    .btn-group {
+        direction: ltr; // Keep button order
+        > .btn:first-child {
+            border-top-right-radius: var(--bs-btn-border-radius) !important;
+            border-bottom-right-radius: var(--bs-btn-border-radius) !important;
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+        > .btn:last-child {
+            border-top-left-radius: var(--bs-btn-border-radius) !important;
+            border-bottom-left-radius: var(--bs-btn-border-radius) !important;
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+    }
+
+    // Adjust card actions
+    .card-actions {
+        margin-left: 0;
+        margin-right: auto;
+    }
+
+    // Adjust alert close button
+    .alert-dismissible {
+        padding-right: var(--bs-alert-padding-x);
+        padding-left: 3rem;
+        .btn-close {
+            right: auto;
+            left: 0;
+        }
+    }
+} 

@@ -18,6 +18,7 @@ Encore
     .addEntry('admin_calendar', './assets/admin/calendar.js')
     .addEntry('admin', './assets/admin/admin.js')
     .addEntry('student_calendar', './assets/student/calendar.js')
+    .addEntry('admin-rtl', './assets/admin/admin-rtl.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -35,7 +36,7 @@ Encore
     .enableSassLoader()
 
     // Process JS files
-    .configureBabel(() => { }, {
+    .configureBabel(() => {}, {
         useBuiltIns: 'usage',
         corejs: 3
     })
@@ -47,7 +48,6 @@ Encore
     })
 
     // Enable PostCSS loader
-    .enablePostCssLoader()
-    ;
+    .enablePostCssLoader();
 
 module.exports = Encore.getWebpackConfig();
