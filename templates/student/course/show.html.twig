@@ -9,10 +9,10 @@
 {% endblock %}
 
 {% block body %}
+	<div class="description">
+		{{ course.description|raw }}
+	</div>
 	<div class="ratio ratio-16x9">x
 		{{  course.vidoeEmbed|raw }}
-	</div>
-	<div class="card-body">
-		{{ course.description|raw }}
 	</div>
 {% endblock %}

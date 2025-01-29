@@ -20,7 +20,7 @@
 	{{ _self.link(path(path, {'id': id}), 'show', 'ph-eye') }}
 {% endmacro %}
 {% macro back(path) %}
-	{{ _self.link(path(path), 'back to list', 'ph-arrow-right') }}
+	{{ _self.link(path(path), 'back', 'ph-arrow-right') }}
 {% endmacro %}
 {% macro tel(tel) %}
 	{{ _self.link('tel:'~tel, tel, 'ph ph-phone') }}

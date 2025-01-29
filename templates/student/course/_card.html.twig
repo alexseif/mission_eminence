@@ -1,20 +1,13 @@
 {% import 'macros/_links.html.twig' as links %}
-<a href="{{ path('student_course_show', {'id': course.id}) }}">
+<a href="{{ path('student_course_show', {'id': course.id}) }}" class="btn btn-link">
 	<article class="card">
 		{% if course.image %}
 			<img class="card-img-top" src="{{ vich_uploader_asset(course) }}" alt="{{ course.title}}">
 		{% endif %}
-		<div class="card-header d-flex flex-wrap">
+		<div class="card-header">
 			<h1 class="card-title">{{ course.title }}</h1>
 		</div>
 		<!-- .card-header -->
-		<div class="ratio ratio-16x9">
-			{{  course.vidoeEmbed|raw }}
-		</div>
-		<div class="card-body">
-			{{ course.description|raw }}
-		</div>
-		<!-- .card-body -->
 	</article>
 	<!-- .card -->
 </a>
