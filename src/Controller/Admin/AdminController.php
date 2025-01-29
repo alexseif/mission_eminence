@@ -27,7 +27,7 @@ class AdminController extends AbstractController
         EventRepository $eventRepository
     ): Response {
         $stats = [
-            'students' => $userRepository->count(['roles' => ['ROLE_STUDENT']]),
+            'students' => $userRepository->countStudents(),
             'courses' => $courseRepository->count([]),
             'testimonials' => $testimonialRepository->count([]),
             'partnerships' => $partnershipRepository->count([]),
