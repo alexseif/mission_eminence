@@ -3,6 +3,8 @@
 namespace App\Controller\Student;
 
 use App\Entity\Course;
+use App\Entity\User;
+use App\Entity\CourseCompletion;
 use App\Form\CourseType;
 use App\Repository\CourseRepository;
 use App\Service\PdfGenerator;
@@ -17,28 +19,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/student/course')]
 final class CourseController extends AbstractController
 {
-
-    #[Route("/test", name: 'student_course_certificate_test')]
-    public function test(PdfGenerator $pdfGenerator)
-    {
-        //TODO: generate certificate per course
-        //TODO: make student attend course
-        //TODO: issue certificate on course completion
-        $date = new \DateTime();
-        $data = [
-            'studentName' => "Student Name",
-            'courseName' => "Course Name",
-            'completedDate' => $date->format('Y-m-d'),
-            'templatePath' => $this->getParameter('kernel.project_dir') . '/public/pdf/course_x_template.pdf'
-        ];
-
-        $pdfGenerator->generatePdf($data);
-
-        // Assign the PDF to the graduated student
-        // $student->setCertificate($templatePath);
-        return new Response();
-    }
-
     #[Route(name: 'student_course_index', methods: ['GET'])]
     public function index(CourseRepository $courseRepository): Response
     {
@@ -74,21 +54,66 @@ final class CourseController extends AbstractController
             return $this->redirectToRoute('student_course_index');
         }
 
-        if ($course->isLocked()) {
-            $this->addFlash('error', 'This course is currently locked.');
-            return $this->redirectToRoute('student_course_index');
-        }
-
+        /** @var User $user */
         $user = $this->getUser();
-        if ($course->isStudentEnrolled($user)) {
+        
+        if ($user->isEnrolledInCourse($course)) {
             $this->addFlash('warning', 'You are already enrolled in this course.');
             return $this->redirectToRoute('student_course_show', ['id' => $course->getId()]);
         }
 
-        $course->addStudent($user);
+        $enrollment = $course->addStudent($user);
+        $entityManager->persist($enrollment);
         $entityManager->flush();
 
         $this->addFlash('success', 'You have successfully enrolled in the course.');
         return $this->redirectToRoute('student_course_show', ['id' => $course->getId()]);
+    }
+
+    #[Route('/{id}/complete', name: 'student_course_complete', methods: ['POST'])]
+    public function completeCourse(
+        Course $course,
+        Request $request,
+        PdfGenerator $pdfGenerator,
+        EntityManagerInterface $entityManager,
+    ): Response {
+        /** @var User $user */
+        $user = $this->getUser();
+        
+        $enrollment = $user->getEnrollmentForCourse($course);
+        if (!$enrollment) {
+            throw $this->createAccessDeniedException('You are not enrolled in this course.');
+        }
+
+        if ($enrollment->isCompleted()) {
+            return $this->json([
+                'success' => false,
+                'message' => 'Course already completed'
+            ]);
+        }
+
+        // Generate certificate
+        $certificatePath = sprintf(
+            '%s/public/certificates/%d_%d.pdf',
+            $this->getParameter('kernel.project_dir'),
+            $user->getId(),
+            $course->getId()
+        );
+        
+        $pdfGenerator->generateCourseCertificate([
+            'studentName' => $user->getFullName(),
+            'courseName' => $course->getTitle(),
+            'completionDate' => new \DateTime(),
+            'outputPath' => $certificatePath
+        ]);
+        
+        $enrollment->complete();
+        $enrollment->setCertificatePath(basename($certificatePath));
+        $entityManager->flush();
+        
+        return $this->json([
+            'success' => true,
+            'certificateUrl' => '/certificates/' . basename($certificatePath)
+        ]);
     }
 }

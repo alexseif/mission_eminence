@@ -2,67 +2,59 @@
 
 namespace App\Controller;
 
-use App\Repository\CourseRepository;
-use App\Repository\UserRepository;
+use App\Entity\Course;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Util\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/enroll')]
+#[IsGranted('ROLE_ADMIN')]
 class EnrollmentController extends AbstractController
 {
-    #[Route('/', name: 'app_enrollment_enroll')]
-    public function enroll(
-        Request $request,
-        EntityManagerInterface $entityManager,
-        UserRepository $userRepository,
-        CourseRepository $courseRepository,
-        TranslatorInterface $translator
-    ): Response {
+    #[Route('/enrollment/enroll', name: 'app_enrollment_enroll', methods: ['POST'])]
+    public function enroll(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $courseId = $request->request->get('course');
+        $studentId = $request->request->get('student');
 
-        $studentId = $request->request->get('student') ?? null;
-        $courseId = $request->request->get('course') ?? null;
-        if ($studentId === null || $courseId === null) {
-            $this->addFlash('error', $translator->trans('Invalid request'));
-            return $this->redirect($this->generateUrl('admin_user_show', ['id' => $studentId]));
+        $course = $entityManager->getRepository(Course::class)->find($courseId);
+        $student = $entityManager->getRepository(User::class)->find($studentId);
+
+        if (!$course || !$student) {
+            throw $this->createNotFoundException('Course or Student not found');
         }
 
-        $student = $userRepository->find($studentId);
-        $course = $courseRepository->find($courseId);
-        $student->addCourse($course);
-        $entityManager->persist($student);
-        $entityManager->flush();
+        if (!$student->isEnrolledInCourse($course)) {
+            $enrollment = $course->addStudent($student);
+            $entityManager->persist($enrollment);
+            $entityManager->flush();
+        }
 
-        $this->addFlash('success', $translator->trans('Student enrolled successfully!'));
-        return $this->redirect($this->generateUrl('admin_user_show', ['id' => $studentId]));
+        return $this->redirectToRoute('admin_user_show', ['id' => $studentId]);
     }
 
-    #[Route('/remove', name: 'app_enrollment_remove')]
-    public function remove(
-        Request $request,
-        EntityManagerInterface $entityManager,
-        UserRepository $userRepository,
-        CourseRepository $courseRepository,
-        TranslatorInterface $translator
-    ): Response {
-        $studentId = $request->request->get('student') ?? null;
-        $courseId = $request->request->get('course') ?? null;
-        if ($studentId === null || $courseId === null) {
-            $this->addFlash('error', $translator->trans('Invalid request'));
-            return $this->redirect($this->generateUrl('admin_user_show', ['id' => $studentId]));
+    #[Route('/enrollment/remove', name: 'app_enrollment_remove', methods: ['POST'])]
+    public function remove(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $courseId = $request->request->get('course');
+        $studentId = $request->request->get('student');
+
+        $course = $entityManager->getRepository(Course::class)->find($courseId);
+        $student = $entityManager->getRepository(User::class)->find($studentId);
+
+        if (!$course || !$student) {
+            throw $this->createNotFoundException('Course or Student not found');
         }
 
-        $student = $userRepository->find($studentId);
-        $course = $courseRepository->find($courseId);
-        $course->removeStudent($student);
-        $entityManager->flush();
+        $enrollment = $student->getEnrollmentForCourse($course);
+        if ($enrollment) {
+            $entityManager->remove($enrollment);
+            $entityManager->flush();
+        }
 
-        $this->addFlash('success', $translator->trans('Student removed successfully!'));
-        return $this->redirect($this->generateUrl('admin_user_show', ['id' => $studentId]));
+        return $this->redirectToRoute('admin_user_show', ['id' => $studentId]);
     }
 }

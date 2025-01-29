@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Course;
+use App\Entity\User;
 use App\Form\CourseType;
 use App\Repository\CourseRepository;
 use App\Service\PdfGenerator;
@@ -17,27 +18,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/admin/course')]
 final class CourseController extends AbstractController
 {
-
-    #[Route("/test", name: 'admin_course_certificate_test')]
-    public function test(PdfGenerator $pdfGenerator)
-    {
-        //TODO: generate certificate per course
-        //TODO: make student attend course
-        //TODO: issue certificate on course completion
-        $date = new \DateTime();
-        $data = [
-            'studentName' => "Student Name",
-            'courseName' => "Course Name",
-            'completedDate' => $date->format('Y-m-d'),
-            'templatePath' => $this->getParameter('kernel.project_dir') . '/public/pdf/course_x_template.pdf'
-        ];
-
-        $pdfGenerator->generatePdf($data);
-
-        // Assign the PDF to the graduated student
-        // $student->setCertificate($templatePath);
-        return new Response();
-    }
 
     #[Route(name: 'admin_course_index', methods: ['GET'])]
     public function index(CourseRepository $courseRepository): Response
@@ -103,5 +83,64 @@ final class CourseController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_course_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{courseId}/complete/{userId}', name: 'admin_course_complete_for_user', methods: ['POST'])]
+    public function completeForUser(
+        int $courseId,
+        int $userId,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        PdfGenerator $pdfGenerator
+    ): Response {
+        $course = $entityManager->getRepository(Course::class)->find($courseId);
+        $user = $entityManager->getRepository(User::class)->find($userId);
+
+        if (!$course || !$user) {
+            throw $this->createNotFoundException('Course or User not found');
+        }
+
+        if (!$this->isCsrfTokenValid('complete-course' . $courseId . $userId, $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token');
+        }
+
+        $enrollment = $user->getEnrollmentForCourse($course);
+
+        if (!$enrollment) {
+            // Create enrollment if it doesn't exist
+            $enrollment = $course->addStudent($user);
+            $entityManager->persist($enrollment);
+        }
+
+        if (!$enrollment->isCompleted()) {
+            // Generate certificate
+            $certificatePath = sprintf(
+                '%s/public/certificates/%d_%d.pdf',
+                $this->getParameter('kernel.project_dir'),
+                $user->getId(),
+                $course->getId()
+            );
+
+            $pdfGenerator->generateCourseCertificate([
+                'studentName' => $user->getFullName(),
+                'courseName' => $course->getTitle(),
+                'completionDate' => new \DateTime(),
+                'outputPath' => $certificatePath
+            ]);
+
+            $enrollment->complete();
+            $enrollment->setCertificatePath(basename($certificatePath));
+            $entityManager->flush();
+
+            $this->addFlash('success', sprintf(
+                'Course "%s" has been marked as completed for user "%s"',
+                $course->getTitle(),
+                $user->getFullName()
+            ));
+        } else {
+            $this->addFlash('warning', 'Course is already completed for this user');
+        }
+
+        return $this->redirectToRoute('admin_user_show', ['id' => $userId]);
     }
 }

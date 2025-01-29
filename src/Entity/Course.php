@@ -46,14 +46,14 @@ class Course
     private ?bool $locked = false;
 
     /**
-     * @var Collection<int, User>
+     * @var Collection<int, CourseCompletion>
      */
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'courses')]
-    private Collection $students;
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: CourseCompletion::class, orphanRemoval: true)]
+    private Collection $studentEnrollments;
 
     public function __construct()
     {
-        $this->students = new ArrayCollection();
+        $this->studentEnrollments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,37 +159,47 @@ class Course
     }
 
     /**
-     * @return Collection<int, User>
+     * @return Collection<int, CourseCompletion>
      */
-    public function getStudents(): Collection
+    public function getStudentEnrollments(): Collection
     {
-        return $this->students;
+        return $this->studentEnrollments;
     }
 
-    public function addStudent(User $student): static
+    public function isStudentEnrolled(User $user): bool
     {
-        if (!$this->students->contains($student)) {
-            $this->students->add($student);
-            $student->addCourse($this);
+        foreach ($this->studentEnrollments as $enrollment) {
+            if ($enrollment->getStudent() === $user) {
+                return true;
+            }
         }
+        return false;
+    }
 
-        return $this;
+    public function addStudent(User $student): CourseCompletion
+    {
+        return $student->enrollInCourse($this);
+    }
+
+    public function isCompletedByUser(User $user): bool
+    {
+        foreach ($this->studentEnrollments as $enrollment) {
+            if ($enrollment->getStudent() === $user && $enrollment->isCompleted()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function removeStudent(User $student): static
     {
-        if ($this->students->removeElement($student)) {
-            $student->removeCourse($this);
+        $enrollment = $student->getEnrollmentForCourse($this);
+        if ($enrollment) {
+            $this->studentEnrollments->removeElement($enrollment);
+            // If using doctrine cascade remove, this isn't necessary
+            // $student->getCourseEnrollments()->removeElement($enrollment);
         }
 
         return $this;
-    }
-
-    /**
-     * Check if a user is enrolled in this course
-     */
-    public function isStudentEnrolled(User $user): bool
-    {
-        return $this->students->contains($user);
     }
 }

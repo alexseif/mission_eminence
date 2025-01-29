@@ -50,14 +50,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $nameOfEnroller = null;
 
     /**
-     * @var Collection<int, Course>
+     * @var Collection<int, CourseCompletion>
      */
-    #[ORM\ManyToMany(targetEntity: Course::class, inversedBy: 'students')]
-    private Collection $courses;
+    #[ORM\OneToMany(mappedBy: 'student', targetEntity: CourseCompletion::class, orphanRemoval: true)]
+    private Collection $courseEnrollments;
 
     public function __construct()
     {
-        $this->courses = new ArrayCollection();
+        $this->courseEnrollments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -189,28 +189,56 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Course>
-     */
     public function getCourses(): Collection
     {
-        return $this->courses;
+        return $this->getCourseEnrollments();
+    }
+    
+    /**
+     * @return Collection<int, CourseCompletion>
+     */
+    public function getCourseEnrollments(): Collection
+    {
+        return $this->courseEnrollments;
     }
 
-    public function addCourse(Course $course): self
+    public function enrollInCourse(Course $course): CourseCompletion
     {
-        if (!$this->courses->contains($course)) {
-            $this->courses->add($course);
+        $enrollment = new CourseCompletion();
+        $enrollment->setStudent($this);
+        $enrollment->setCourse($course);
+        $this->courseEnrollments->add($enrollment);
+        return $enrollment;
+    }
+
+    public function isEnrolledInCourse(Course $course): bool
+    {
+        foreach ($this->courseEnrollments as $enrollment) {
+            if ($enrollment->getCourse() === $course) {
+                return true;
+            }
         }
-
-        return $this;
+        return false;
     }
 
-    public function removeCourse(Course $course): self
+    public function hasCompletedCourse(Course $course): bool
     {
-        $this->courses->removeElement($course);
+        foreach ($this->courseEnrollments as $enrollment) {
+            if ($enrollment->getCourse() === $course && $enrollment->isCompleted()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-        return $this;
+    public function getEnrollmentForCourse(Course $course): ?CourseCompletion
+    {
+        foreach ($this->courseEnrollments as $enrollment) {
+            if ($enrollment->getCourse() === $course) {
+                return $enrollment;
+            }
+        }
+        return null;
     }
 
     public function eraseCredentials()
@@ -222,5 +250,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
+    }
+
+    public function getFullName(): string
+    {
+        return trim($this->name);
+    }
+
+    /**
+     * @deprecated Use enrollInCourse() instead
+     */
+    public function addCourse(Course $course): self
+    {
+        if (!$this->isEnrolledInCourse($course)) {
+            $this->enrollInCourse($course);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @deprecated Use CourseCompletion methods instead
+     */
+    public function removeCourse(Course $course): self
+    {
+        foreach ($this->courseEnrollments as $enrollment) {
+            if ($enrollment->getCourse() === $course) {
+                $this->courseEnrollments->removeElement($enrollment);
+                break;
+            }
+        }
+
+        return $this;
     }
 }
