@@ -16,7 +16,8 @@ class StudentController extends AbstractController
     #[Route('/', name: 'student_home')]
     public function index(): Response
     {
-        return $this->render('student/index.html.twig');
+        return $this->redirectToRoute('student_course_index');
+        // return $this->render('student/index.html.twig');
     }
 
     #[Route('/events/{id}', name: 'student_event_show', methods: ['GET'])]
