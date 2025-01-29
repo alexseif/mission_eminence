@@ -32,30 +32,29 @@
 // );
 // Define your custom color palette 
 $theme-colors: (
-    'primary': #4A90E2,
-    // Set green as primary color 
-    'secondary': #AB973E,
-    // Set gold as secondary color 
-    'success': #58A6AB,
-    // Set light green as success color 
-    'info': #FFF5E1,
-    // Set cream as info color 
-    'warning': #8C7A31,
-    // Set dark gold as warning color 
-    'danger': #CC4C4C,
-    // Set black as danger color 
-    'light': #ffffff,
-    // Set white as light color 
-    'dark': #000000,
-    // Set grey as dark color 
-    'gold': #AB973E,
-    'green': #176C73,
-    'black': #000000,
+    // Primary Colors
+    'primary': #113D54,    // Deep blue - kept as is
+    'gold': #AB973E,       // Brand gold - kept as is
+    'success': #25362F,    // Forest green - kept as is
+    'danger': #4F2340,     // Burgundy - kept as is
+
+    // Secondary Colors (derived from primary colors)
+    'secondary': #8C7A31,  // Darker gold (previously dark-gold)
+    'warning': #C4B265,    // Lighter gold
+    'info': #1C5980,       // Lighter blue derived from primary
+    
+    // Neutral Colors
+    'light': #F5F5F5,      // Off-white (warmer than pure white)
+    'dark': #000,       // Soft black
+    'grey': #6B7280,       // Neutral grey
+    
+    // Accent Colors
+    'light-green': #3D5A52, // Darker version of success green
+    'cream': #F8F4E8,      // Warmer cream color
+    
+    // Basic Colors
     'white': #ffffff,
-    'dark-gold': #8C7A31,
-    'light-green': #58A6AB,
-    'grey': #808080,
-    'cream': #FFF5E1
+    'black': #000000
 );
 
 // 3. Base configuration
