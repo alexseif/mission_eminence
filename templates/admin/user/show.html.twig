@@ -65,7 +65,10 @@
 		</tbody>
 	</table>
 	<div class="card-footer">
-		<h2>Courses</h2>
+		<div class="d-flex justify-content-between">
+			<h2>Courses</h2>
+			<button class="btn btn-sm btn-gold text-white fw-bold" data-bs-toggle="modal" data-bs-target="#enrollModal">Enroll in Course</button>
+		</div>
 		<div class="row">
 			{% for course in user.courses %}
 				<div class="col-md-4">
@@ -80,9 +83,6 @@
 				No Courses
 			{% endfor %}
 		</div>
-	</div>
-	<div class="card-footer">
-		<button class="btn btn-sm btn-link text-gold" data-bs-toggle="modal" data-bs-target="#enrollModal">Enroll in Course</button>
 	</div>
 
 	<!-- Modal -->
