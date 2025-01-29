@@ -54,7 +54,14 @@ $theme-colors: (
     
     // Basic Colors
     'white': #ffffff,
-    'black': #000000
+    'black': #000000,
+
+    // Add these color variations
+    'primary-dark': darken(#113D54, 10%),
+    'success-dark': darken(#25362F, 10%),
+    'info-dark': darken(#1C5980, 10%),
+    'warning-dark': darken(#C4B265, 10%),
+    'danger-dark': darken(#4F2340, 10%),
 );
 
 // 3. Base configuration
@@ -148,5 +155,18 @@ a.nav-link {
         &.thumb-preview {
             margin-top: 0.5rem;
         }
+    }
+}
+
+// Add some card styles
+.card {
+    transition: transform 0.2s;
+    
+    &:hover {
+        transform: translateY(-5px);
+    }
+    
+    .fs-1 {
+        opacity: 0.8;
     }
 }
