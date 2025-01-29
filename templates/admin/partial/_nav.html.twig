@@ -10,21 +10,29 @@
 
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<div
-				class="navbar-nav d-flex ms-5">
+				class="navbar-nav d-flex ms-auto">
 				{# Bootstrap dropdown user menu for symfony 6 and twig #}
 				<div class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						{{ app.user.name|default('') }}
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+						{% if is_granted('ROLE_ADMIN') %}
+							<li>
+								<a class="dropdown-item" href="{{ path('admin_home') }}">
+									{{ "Admin Dashboard"|trans }}
+								</a>
+							</li>
+						{% endif %}
+						{% if is_granted('ROLE_STUDENT') %}
+							<li>
+								<a class="dropdown-item" href="{{ path('student_home') }}">
+									{{ "Student Dashboard"|trans }}
+								</a>
+							</li>
+						{% endif %}
 						<li>
-							<a class="dropdown-item" href="#">Profile</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">Settings</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+							<a class="dropdown-item" href="{{ path('app_logout') }}">{{ "Logout"|trans }}</a>
 						</li>
 					</ul>
 				</div>
