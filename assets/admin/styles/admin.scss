@@ -83,8 +83,16 @@ $nav-link-font-weight: 600;
 
 .vich-image {
     img {
-        max-width: 100%;
-        height: auto;
+        max-width: 150px;
+        max-height: 150px;
+        object-fit: cover;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 0.5rem;
+    }
+
+    .form-check {
+        margin-top: 0.5rem;
     }
 }
 
@@ -119,6 +127,26 @@ a.nav-link {
         td,
         th {
             background-color: var(--bs-card-cap-bg);
+        }
+    }
+}
+
+.thumb-preview {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.vich-image {
+    .form-check {
+        margin-top: 0.5rem;
+    }
+    
+    img {
+        &.thumb-preview {
+            margin-top: 0.5rem;
         }
     }
 }

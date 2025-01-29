@@ -1,4 +1,17 @@
 {{ form_start(form) }}
-{{ form_widget(form) }}
+<div class="row">
+	<div class="col-md-8">
+		{{ form_row(form.title) }}
+		{{ form_row(form.vidoeEmbed) }}
+		{{ form_row(form.description) }}
+		{{ form_row(form.day) }}
+		{{ form_row(form.locked) }}
+	</div>
+	<div class="col-md-4">
+		{{ form_row(form.imageFile) }}
+		{{ form_row(form.certificateTemplateFile) }}
+	</div>
+</div>
+
 <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

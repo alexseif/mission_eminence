@@ -27,6 +27,15 @@
 				{% include 'admin/partial/_sidebar.html.twig' %}
 				<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" style="min-height: calc(100vh - 98.766px);">
 					{% block main %}
+					{# Flash Messages #}
+						{% for label, messages in app.flashes %}
+							{% for message in messages %}
+								<div class="alert alert-{{ label == 'error' ? 'danger' : label }} alert-dismissible fade show mt-3" role="alert">
+									{{ message }}
+									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
+							{% endfor %}
+						{% endfor %}
 						<div class="card mt-3">
 							<div class="card-header d-flex">
 								<h1 class="card-title mb-0">
