@@ -120,12 +120,18 @@ final class CourseController extends AbstractController
                 $user->getId(),
                 $course->getId()
             );
-
+            
+            $templatePath = null;
+            if ($course->getCertificateTemplate()) {
+                $templatePath = $this->getParameter('kernel.project_dir') . '/public/uploads/certificates/templates/' . $course->getCertificateTemplate();
+            }
+            
             $pdfGenerator->generateCourseCertificate([
                 'studentName' => $user->getFullName(),
                 'courseName' => $course->getTitle(),
                 'completionDate' => new \DateTime(),
-                'outputPath' => $certificatePath
+                'outputPath' => $certificatePath,
+                'templatePath' => $templatePath,
             ]);
 
             $enrollment->complete();

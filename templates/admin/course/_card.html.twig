@@ -1,10 +1,12 @@
 {% import 'macros/_links.html.twig' as links %}
-<article class="card">
+<div class="card mb-4">
 	{% if course.image %}
-		<img class="card-img-top" src="{{ vich_uploader_asset(course) }}" alt="{{ course.title}}">
+		<img src="{{ vich_uploader_asset(course, 'imageFile') }}" class="card-img-top" alt="{{ course.title }}">
 	{% endif %}
-	<div class="card-header d-flex flex-wrap">
-		<h1 class="card-title">{{ course.title }}</h1>
+	
+	<div class="card-body">
+	<div class="d-flex flex-wrap">
+		<h5 class="card-title">{{ course.title }}</h5>
 		<div class="ms-auto">
 			<div class="btn-group btn-group-sm">
 				{{ links.showEdit('admin_course', course.id)}}
@@ -12,38 +14,22 @@
 			<!-- .btn-group -->
 		</div>
 		<!-- .ms-auto -->
+		</div>
+		<p class="card-text">{{ course.description }}</p>
+		
+		{% if course.certificateTemplate %}
+			<div class="mt-3">
+				<h6>Certificate Template:</h6>
+				<img src="{{ vich_uploader_asset(course, 'certificateTemplateFile') }}" 
+					 alt="Certificate Template" class="img-fluid">
+			</div>
+		{% endif %}
+		
+		<div class="mt-3">
+			<small class="text-muted">Day: {{ course.day }}</small>
+			{% if course.locked %}
+				<span class="badge bg-warning ms-2">Locked</span>
+			{% endif %}
+		</div>
 	</div>
-	<!-- .card-header -->
-
-	<div class="card-body">
-		{{ course.description|raw }}
-	</div>
-	<!-- .card-body -->
-	<div class="card-footer p-0">
-		<table class="table m-0">
-			<tbody>
-				<tr>
-					<th>Day</th>
-					<td>{{ course.day }}</td>
-				</tr>
-				<tr>
-					<th>Locked</th>
-					<td>{{ course.locked ? 'Locked': 'Open' }}</td>
-				</tr>
-				{# <tr>
-									<th>CreatedAt</th>
-									<td>{{ course.createdAt ? course.createdAt|date : '' }}</td>
-								</tr>
-								<tr>
-									<th>UpdatedAt</th>
-									<td>{{ course.updatedAt ? course.updatedAt|date : '' }}</td>
-								</tr> #}
-			</tbody>
-		</table>
-	</div>
-	<!-- .card-footer  -->
-{# <div class="ratio ratio-16x9"> #}
-	{# {{  course.vidoeEmbed|raw }} #}
-	{# </div> #}
-</article>
-<!-- .card -->
+</div>

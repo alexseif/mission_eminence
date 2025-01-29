@@ -35,8 +35,7 @@ class Course
     private ?int $day = null;
 
     // NOTE: This is not a mapped field of entity metadata, just a simple property.
-    // #[Vich\UploadableField(mapping: 'mmm', fileNameProperty: 'mmm.name', size: 'mmm.size')]
-    #[Vich\UploadableField(mapping: 'mmm_image', fileNameProperty: 'image')]
+    #[Vich\UploadableField(mapping: 'course_image', fileNameProperty: 'image')]
     private ?File $imageFile = null;
 
     #[ORM\Column(nullable: true)]
@@ -44,6 +43,12 @@ class Course
 
     #[ORM\Column]
     private ?bool $locked = false;
+
+    #[Vich\UploadableField(mapping: 'course_certificate', fileNameProperty: 'certificateTemplate')]
+    private ?File $certificateTemplateFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $certificateTemplate = null;
 
     /**
      * @var Collection<int, CourseCompletion>
@@ -151,10 +156,43 @@ class Course
         return $this->image;
     }
 
-    public function setImage(string $image): static
+    public function setImage(?string $image): static
     {
         $this->image = $image;
+        return $this;
+    }
 
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $certificateTemplateFile
+     */
+    public function setCertificateTemplateFile(?File $certificateTemplateFile = null): void
+    {
+        $this->certificateTemplateFile = $certificateTemplateFile;
+
+        if (null !== $certificateTemplateFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getCertificateTemplateFile(): ?File
+    {
+        return $this->certificateTemplateFile;
+    }
+
+    public function getCertificateTemplate(): ?string
+    {
+        return $this->certificateTemplate;
+    }
+
+    public function setCertificateTemplate(?string $certificateTemplate): static
+    {
+        $this->certificateTemplate = $certificateTemplate;
         return $this;
     }
 
