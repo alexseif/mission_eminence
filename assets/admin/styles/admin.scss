@@ -112,3 +112,13 @@ a.nav-link {
         text-decoration: underline;
     }
 }
+
+.card-footer {
+    .table {
+
+        td,
+        th {
+            background-color: var(--bs-card-cap-bg);
+        }
+    }
+}

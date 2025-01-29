@@ -42,8 +42,9 @@ final class CourseController extends AbstractController
     #[Route(name: 'admin_course_index', methods: ['GET'])]
     public function index(CourseRepository $courseRepository): Response
     {
+        $courses = $courseRepository->findAll();
         return $this->render('admin/course/index.html.twig', [
-            'courses' => $courseRepository->findAll(),
+            'courses' => $courses,
         ]);
     }
 

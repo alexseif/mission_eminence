@@ -14,13 +14,13 @@
 		<!-- .ms-auto -->
 	</div>
 	<!-- .card-header -->
-	
+
 	<div class="card-body">
 		{{ course.description|raw }}
 	</div>
 	<!-- .card-body -->
-	<div class="card-footer">
-		<table class="table">
+	<div class="card-footer p-0">
+		<table class="table m-0">
 			<tbody>
 				<tr>
 					<th>Day</th>
@@ -30,20 +30,20 @@
 					<th>Locked</th>
 					<td>{{ course.locked ? 'Locked': 'Open' }}</td>
 				</tr>
-				<tr>
-					<th>CreatedAt</th>
-					<td>{{ course.createdAt ? course.createdAt|date : '' }}</td>
-				</tr>
-				<tr>
-					<th>UpdatedAt</th>
-					<td>{{ course.updatedAt ? course.updatedAt|date : '' }}</td>
-				</tr>
+				{# <tr>
+									<th>CreatedAt</th>
+									<td>{{ course.createdAt ? course.createdAt|date : '' }}</td>
+								</tr>
+								<tr>
+									<th>UpdatedAt</th>
+									<td>{{ course.updatedAt ? course.updatedAt|date : '' }}</td>
+								</tr> #}
 			</tbody>
 		</table>
 	</div>
 	<!-- .card-footer  -->
-	<div class="ratio ratio-16x9">
-		{{  course.vidoeEmbed|raw }}
-	</div>
+{# <div class="ratio ratio-16x9"> #}
+	{# {{  course.vidoeEmbed|raw }} #}
+	{# </div> #}
 </article>
 <!-- .card -->
