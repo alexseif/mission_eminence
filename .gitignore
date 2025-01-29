@@ -32,3 +32,4 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 # App upload directory
 /public/uploads/
+/public/certificates/
