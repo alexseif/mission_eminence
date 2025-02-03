@@ -7,6 +7,7 @@ use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,8 +33,28 @@ class RegistrationController extends AbstractController
         MailerInterface $mailer,
         UserRepository $userRepository
     ): Response {
+        $src = $request->get('src');
+        dump($src);
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
+        if ('free-course' == $src) {
+            $form->add('referredBy', TextType::class, [
+                'label' => 'Referred By',
+                'attr' => ['placeholder' => 'Enter your referral'],
+                'required' => false
+            ]);
+        } else {
+            $form->add('iGeniusUserID', TextType::class, [
+                'label' => 'iGenius User ID',
+                'attr' => ['placeholder' => 'Enter your iGenius User ID'],
+                'required' => false
+            ])
+                ->add('nameOfEnroller', TextType::class, [
+                    'label' => 'Name of Enroller',
+                    'attr' => ['placeholder' => 'Enter your name of enroller'],
+                    'required' => false
+                ]);
+        }
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $existingUser = $userRepository->findOneBy(['email' => $user->getEmail()]);

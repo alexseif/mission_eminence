@@ -50,23 +50,7 @@ class RegistrationFormType extends AbstractType
             ->add('number', TextType::class, [
                 'label' => 'Number',
                 'attr' => ['placeholder' => 'Enter your number'],
-            ])
-            //TODO: no referral option
-            ->add('referredBy', TextType::class, [
-                'label' => 'Referred By',
-                'attr' => ['placeholder' => 'Enter your referral'],
-                'required' => false
-            ])
-            ->add('iGeniusUserID', TextType::class, [
-                'label' => 'iGenius User ID',
-                'attr' => ['placeholder' => 'Enter your iGenius User ID'],
-                'required' => false
-            ])
-            ->add('nameOfEnroller', TextType::class, [
-                'label' => 'Name of Enroller',
-                'attr' => ['placeholder' => 'Enter your name of enroller'],
-                'required' => false
-            ])
+            ])      
         ;
     }
 
