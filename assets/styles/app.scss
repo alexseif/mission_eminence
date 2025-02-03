@@ -368,8 +368,8 @@ main {
         }
 
         p {
-            max-width: 900px;
             font-family: 'Montserrat', 'Open sans';
+            font-size: 1.25rem;
             margin: 0 auto;
             padding-bottom: 3rem;
         }
@@ -386,7 +386,7 @@ main {
             margin-bottom: 10vh;
 
             @include media-breakpoint-up(lg) {
-                max-width: 15.6250rem;
+                max-width: 16rem;
             }
         }
     }
