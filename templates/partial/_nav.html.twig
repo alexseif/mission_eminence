@@ -28,7 +28,7 @@
 						{% set current_locale = {
 							'en': 'English'|trans,
 							'ar': 'Arabic'|trans,
-							'ru': 'Russian'|trans
+							'sl': 'Slovenian'|trans
 						} %}
 						{{ current_locale[app.request.locale] }}
 					</a>
@@ -36,7 +36,7 @@
 						{% set locales = {
 							'en': 'English'|trans,
 							'ar': 'Arabic'|trans,
-							'ru': 'Russian'|trans
+							'sl': 'Slovenian'|trans
 						} %}
 						{% for locale, label in locales %}
 							<li>
