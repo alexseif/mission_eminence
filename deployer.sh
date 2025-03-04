@@ -1,4 +1,5 @@
 #!/bin/bash
+source /home/missafyb/nodevenv/mission_eminence/22/bin/activate && cd /home/missafyb/mission_eminence
 git reset HEAD --hard
 git pull origin master
 php /opt/cpanel/composer/bin/composer dump-env prod
